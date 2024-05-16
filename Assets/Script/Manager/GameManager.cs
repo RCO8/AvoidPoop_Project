@@ -9,6 +9,17 @@ public class GameManager : MonoBehaviour
     float time;
     float score;
 
+    private void Awake()
+    {
+        if (null == Instance)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);     
+    }
+
     // Start is called before the first frame update
     void Start()
     {
