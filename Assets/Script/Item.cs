@@ -14,7 +14,7 @@ public class Item : MonoBehaviour
     public float speed;
     public Rigidbody2D rigidbody;
 
-    public float increase {  get; }
+    public float increase { get; }
 
     private ItemType Type;
 
@@ -30,10 +30,5 @@ public class Item : MonoBehaviour
         float y = Random.Range(0, 2) == 0 ? -1 : 1;
 
         rigidbody.velocity = new Vector2(x * speed, y * speed);
-    }
-
-    public void Initialize()
-    {
-
     }
 }
