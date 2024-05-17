@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class BulletController : MonoBehaviour
 {
@@ -74,7 +75,13 @@ public class BulletController : MonoBehaviour
 
     private void OnBecameInvisible()
     {
-        //DestroyBullet(false);
-        Invoke("DestroyBullet", 1f);
+        StartCoroutine(DestroyAfterWait());
+    }
+
+    IEnumerator DestroyAfterWait()
+    {
+        yield return new WaitForSeconds(1f);
+
+        DestroyBullet(false);
     }
 }
