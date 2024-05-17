@@ -9,14 +9,18 @@ public enum ItemType
     SPEEDUP
 }
 
+[System.Serializable]
+
 public class Item : MonoBehaviour
 {
-    [SerializeField] private ItemType type;
-
     public float speed;
+    public float increase { get; }
+    
     public Rigidbody2D rigidbody;
 
-    public float increase { get; }
+    public ItemType Type;
+
+    public ItemSO itemSO;
 
     void Start()
     {
