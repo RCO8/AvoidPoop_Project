@@ -8,6 +8,8 @@ public class Character : MonoBehaviour
 
     protected CharacterStatsHandler statsHandler;
 
+    public bool IsDead {  get; protected set; }
+
     protected virtual void Awake()
     {
         rgb2D = GetComponent<Rigidbody2D>();
