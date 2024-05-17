@@ -57,7 +57,7 @@ public class Enemy : Character
     private IEnumerator UpdatePath()
     {
         // 여기서 isDead이 문제가 발생하면 상속에서 문제가 발생할수있습니다.
-        while(!isDead)
+        while(!IsDead)
         {
             if(hasTarget)
             {
@@ -77,7 +77,7 @@ public class Enemy : Character
                     Character character = collider.GetComponent<Character>(); 
                    
                     // 만약 컴포넌트가 존재하면 그리고 살아있다면 이것은아직 캐릭터에 구현이 안됨.
-                    if(character != null && !character.isDead)
+                    if(character != null && !character.IsDead)
                     {
                         // 추적 대상 설정 
                         targetEntity = character;
@@ -98,7 +98,7 @@ public class Enemy : Character
         get
         {
             // 추적상태 있고 거리를 알고 살아있을때
-            if(targetEntity !=  null && !targetEntity.isDead)
+            if(targetEntity !=  null && !targetEntity.IsDead)
             {
                 return true;
             }
@@ -112,7 +112,7 @@ public class Enemy : Character
     private void OnTriggerStay(Collider other)
     {
         //자신이 사망하지 않았다면
-        if(!isDead && Time.time >= lastAttackTime + timeBeAttack)
+        if(!IsDead && Time.time >= lastAttackTime + timeBeAttack)
         {
             Character attackTarget = other.GetComponent<Character>();
 
@@ -131,7 +131,7 @@ public class Enemy : Character
     }
   
     // 만약 이게 오류가 난다며 character에 부분에서 dead가 버추얼로 만들어지지 않았기때문에
-    public override void Dead()
+    protected override void Dead()
     {
         base.Dead();
 
