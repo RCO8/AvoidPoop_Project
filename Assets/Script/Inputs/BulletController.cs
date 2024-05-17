@@ -75,4 +75,9 @@ public class BulletController : MonoBehaviour
     {
         return value == (value | 1 << layer);
     }
+
+    private void OnBecameInvisible()
+    {
+        Invoke("DestroyBullet", 1f);
+    }
 }

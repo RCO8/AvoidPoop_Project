@@ -454,6 +454,7 @@ GameObject:
   m_Component:
   - component: {fileID: 471000951}
   - component: {fileID: 471000952}
+  - component: {fileID: 471000953}
   m_Layer: 5
   m_Name: GameManager
   m_TagString: Untagged
@@ -493,6 +494,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeTxt: {fileID: 224655280}
+--- !u!114 &471000953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471000950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22b7a7b67cd1f7142be81e86ad5cef3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pools:
+  - tag: Bullet
+    prefab: {fileID: 5975675928629426048, guid: 93f6eb3abbe204d41a628400a693355c, type: 3}
+    size: 50
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
