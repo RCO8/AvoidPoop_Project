@@ -10,15 +10,11 @@ public class Player : Character
     // 속성 업그레이드 하면 일정 시간의 유효
     private float speedTime = 5f;
     private float powerTime = 5f;
-        
-    private ObjectPool pool;
 
     protected override void Awake()
     {
         base.Awake();
         controller = GetComponent<PlayerController>();
-
-        pool = GameManager.Instance.GetComponent<ObjectPool>();
     }
 
     private void Start()
@@ -90,6 +86,8 @@ public class Player : Character
 
     private void CreateBullet(RangedAttackSO rangedAttackSO, float angle)
     {
+        ObjectPool pool = GameManager.Instance.GetComponent<ObjectPool>();
+
         GameObject obj = pool.SpawnFromPool(rangedAttackSO.bulletNameTag);
 
         obj.transform.position = targetPivot.position;
