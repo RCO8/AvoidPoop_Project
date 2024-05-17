@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
             time += Time.deltaTime;
             timeTxt.text = time.ToString("N2");
         }
+
+     
     }
 
     void ResultUI() //결과 UI 출력
