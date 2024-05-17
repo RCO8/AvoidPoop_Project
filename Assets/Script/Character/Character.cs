@@ -24,9 +24,10 @@ public class Character : MonoBehaviour
         ViewTarget(targetRotation);
     }
 
-    void Shooting()
+    protected void Shooting(bool isShot)
     {
         //발사하는 총알 생성 (오브젝트 풀링)
+        //if(isShot) 총알발사
     }
     protected void Moving(Vector2 move)
     {
@@ -41,8 +42,9 @@ public class Character : MonoBehaviour
     }
 
 
-    void Dead()
+    protected virtual void Dead()
     {
-
+        //공통적으로 파괴를 하면 좋을 것 같은데
+        //연출차이로?
     }
 }
