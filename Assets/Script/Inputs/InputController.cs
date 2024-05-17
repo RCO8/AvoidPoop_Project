@@ -13,15 +13,27 @@ public class InputController : MonoBehaviour
 
     private float timeSinceLastAttack = float.MaxValue;
 
+    protected CharacterStatsHandler stats { get; private set; }
+
+    private void Awake()
+    {
+        stats = GetComponent<CharacterStatsHandler>();
+    }
+
     private void Update()
     {
-        
+        HandleAttackDelay();
     }
 
     private void HandleAttackDelay()
     {
-        if (true == IsAttacking)
-            CallShootEvent();
+        if (stats.CurrentStat.attackSO.delay > timeSinceLastAttack)
+            timeSinceLastAttack += Time.deltaTime;
+        else if ((true == IsAttacking) && (stats.CurrentStat.attackSO.delay <= timeSinceLastAttack))
+        {
+            timeSinceLastAttack = 0f;
+            CallShootEvent(stats.CurrentStat.attackSO);
+        }
     }
 
     //입력 시스템 Invoke

@@ -10,8 +10,7 @@ public class Player : Character
     // 속성 업그레이드 하면 일정 시간의 유효
     private float speedTime = 5f;
     private float powerTime = 5f;
-
-    private Vector2 aimDirection = Vector2.up;
+        
     private ObjectPool pool;
 
     protected override void Awake()
@@ -38,7 +37,7 @@ public class Player : Character
 
     private void PlayerMoving() //플레이어만의 이동기능
     {
-        rgb2D.velocity = characterMovement.normalized * Speed;
+        rgb2D.velocity = characterMovement.normalized * statsHandler.CurrentStat.speed;
     }
     private void PlayerTarget() //마우스 방향 조준
     {
@@ -51,12 +50,12 @@ public class Player : Character
     private void PowerUp()
     {
         // 일정시간동안 Power를 2로
-        Power = 2f;
+        statsHandler.CurrentStat.power = 2f;
     }
     private void SpeedUp()
     {
         //일정시간동안 Speed를 5로
-        Speed = 5f;
+        statsHandler.CurrentStat.speed = 5f;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -69,7 +68,7 @@ public class Player : Character
         //만약 아이템을 먹으면 종류에 따라 업그레이드 함수로 이동
     }
 
-    private void Shooting(AttackSO attackSO)
+    protected override void Shooting(AttackSO attackSO)
     {
         RangedAttackSO rangedAttackSO = attackSO as RangedAttackSO;
 
@@ -96,7 +95,7 @@ public class Player : Character
         obj.transform.position = targetPivot.position;
 
         BulletController bulletController = obj.GetComponent<BulletController>();
-        bulletController.InitailizeAttack(RotateVector2(aimDirection, angle), rangedAttackSO);
+        bulletController.InitailizeAttack(RotateVector2(targetRotation, angle), rangedAttackSO);
     }
 
     private static Vector2 RotateVector2(Vector2 v, float angle)

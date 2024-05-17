@@ -74,6 +74,7 @@ public class BulletController : MonoBehaviour
 
     private void OnBecameInvisible()
     {
+        //DestroyBullet(false);
         Invoke("DestroyBullet", 1f);
     }
 }

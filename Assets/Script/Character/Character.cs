@@ -2,20 +2,16 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    //기본 필드 : 속도나 파워가 바뀔때 필요
-    protected float Speed { get; set; } = 3f;
-    protected float Power { get; set; } = 1f;
-
-
-
     protected Rigidbody2D rgb2D;
     protected Vector2 characterMovement;
     protected Vector2 targetRotation;
 
+    protected CharacterStatsHandler statsHandler;
+
     protected virtual void Awake()
     {
         rgb2D = GetComponent<Rigidbody2D>();
-
+        statsHandler = GetComponent<CharacterStatsHandler>();
     }
 
     protected virtual void FixedUpdate()
@@ -24,7 +20,7 @@ public class Character : MonoBehaviour
         ViewTarget(targetRotation);
     }
 
-    protected void Shooting(bool isShot)
+    protected virtual void Shooting(AttackSO attackSO)
     {
         //발사하는 총알 생성 (오브젝트 풀링)
         //if(isShot) 총알발사
