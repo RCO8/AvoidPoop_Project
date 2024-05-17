@@ -2,24 +2,25 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    protected float Speed { get; set; }
-    int power;
+    //기본 필드 : 속도나 파워가 바뀔때 필요
+    protected float Speed { get; set; } = 3f;
+    protected float Power { get; set; } = 1f;
     Bullet bullet;  //오브젝트 풀링 필요
 
     protected Rigidbody2D rgb2D;
     protected Vector2 characterMovement;
+    protected Vector2 targetRotation;
 
     protected virtual void Awake()
     {
         rgb2D = GetComponent<Rigidbody2D>();
 
-        //기본 속성값 설정
-        Speed = 3f;
     }
 
     protected virtual void FixedUpdate()
     {
         Moving(characterMovement);
+        ViewTarget(targetRotation);
     }
 
     void Shooting()
@@ -33,6 +34,12 @@ public class Character : MonoBehaviour
         //이동방향 * speed;
         characterMovement = move;
     }
+    protected void ViewTarget(Vector2 target)
+    {
+        targetRotation = target;
+    }
+
+
     void Dead()
     {
 

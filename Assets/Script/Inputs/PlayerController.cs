@@ -6,15 +6,17 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : InputController
 {
-
-
+    [SerializeField] Camera cam;
     public void OnMove(InputValue value)
     {
-        CallMoveEvent(value.Get<Vector2>());
+        CallMoveEvent(value.Get<Vector2>().normalized);
     }
 
     public void OnTarget(InputValue value)
     {
-        CallTargetEvent(value.Get<Vector2>());
+        Vector2 targetPos = value.Get<Vector2>();
+        Vector2 worldPos = cam.ScreenToWorldPoint(targetPos);
+        targetPos = (worldPos - (Vector2)transform.position).normalized;
+        CallTargetEvent(targetPos);
     }
 }
