@@ -3,10 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.WSA;
 
+public enum ItemType
+{
+    POWERUP,
+    SPEEDUP
+}
+
 public class Item : MonoBehaviour
 {
     public float speed;
     public Rigidbody2D rigidbody;
+
+    public float increase {  get; }
+
+    private ItemType Type;
 
     void Start()
     {
