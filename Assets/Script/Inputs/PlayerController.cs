@@ -22,6 +22,7 @@ public class PlayerController : InputController
 
     public void OnShoot(InputValue shoot)
     {
-
+        CallShootEvent(shoot.isPressed);
+        //Debug.Log("น฿ป็");
     }
 }
