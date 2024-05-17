@@ -11,12 +11,12 @@ public enum ItemType
 
 public class Item : MonoBehaviour
 {
+    [SerializeField] private ItemType type;
+
     public float speed;
     public Rigidbody2D rigidbody;
 
     public float increase { get; }
-
-    private ItemType Type;
 
     void Start()
     {
