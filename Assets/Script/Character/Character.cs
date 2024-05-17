@@ -25,7 +25,7 @@ public class Character : MonoBehaviour
 
     void Shooting()
     {
-        //발사하는 총알 생성 (오브젝트 풀링)
+
     }
     protected void Moving(Vector2 move)
     {

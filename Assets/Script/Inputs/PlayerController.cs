@@ -19,9 +19,4 @@ public class PlayerController : InputController
         targetPos = (worldPos - (Vector2)transform.position).normalized;
         CallTargetEvent(targetPos);
     }
-
-    public void OnShoot(InputValue shoot)
-    {
-
-    }
 }
