@@ -21,11 +21,4 @@ public class Item : MonoBehaviour
 
         rigidbody.velocity = new Vector2(x * speed, y * speed);
     }
-
-    public void Reset()
-    {
-        rigidbody.velocity = Vector2.zero;
-        transform.position = Vector2.zero;
-        Launch();
-    }
 }
