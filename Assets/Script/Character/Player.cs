@@ -34,7 +34,7 @@ public class Player : Character
     {
         rgb2D.velocity = characterMovement.normalized * Speed;
     }
-    private void PlayerTarget()
+    private void PlayerTarget() //마우스 방향 조준
     {
         float rotZ = Mathf.Atan2(targetRotation.y, targetRotation.x) * Mathf.Rad2Deg;
         targetPivot.rotation = Quaternion.Euler(0, 0, rotZ);
