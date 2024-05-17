@@ -12,15 +12,11 @@ public class BulletController : MonoBehaviour
     private bool isReady = false;
     private bool fxOnDestroy = true;
 
-    private ObjectPool obPool;
-
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         trailRenderer = GetComponent<TrailRenderer>();
-
-        obPool = GameManager.Instance.GetComponent<ObjectPool>();
     }
 
     private void FixedUpdate()
@@ -54,7 +50,7 @@ public class BulletController : MonoBehaviour
 
         gameObject.SetActive(false);
 
-        obPool.RetrieveObject(attackData.bulletNameTag, this.gameObject);
+        GameManager.Instance.GetComponent<ObjectPool>().RetrieveObject(attackData.bulletNameTag, this.gameObject);
     }
 
     private void UpdateBulletSprite()
@@ -74,5 +70,11 @@ public class BulletController : MonoBehaviour
     private bool IsLayerMatched(int value, int layer)
     {
         return value == (value | 1 << layer);
+    }
+
+    private void OnBecameInvisible()
+    {
+        //DestroyBullet(false);
+        Invoke("DestroyBullet", 1f);
     }
 }

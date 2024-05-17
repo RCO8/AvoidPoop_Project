@@ -15,11 +15,12 @@ public class ObjectPool : MonoBehaviour
     private Dictionary<string, Queue<GameObject>> PoolDictionary;
     private Dictionary<string, int> PoolIndexDictionary;
 
-    private GameObject obj;
+    private GameObject obj = null;
 
     private void Awake()
     {
         PoolDictionary = new Dictionary<string, Queue<GameObject>>();
+        PoolIndexDictionary = new Dictionary<string, int>();
 
         for (int i = 0; i < pools.Count; ++i)
         {
@@ -27,11 +28,11 @@ public class ObjectPool : MonoBehaviour
 
             for (int j = 0; j < pools[i].size; ++j)
             {
-                obj = Instantiate(pools[i].prefab, transform);
+                GameObject obj1 = Instantiate(pools[i].prefab, transform);
 
-                obj.SetActive(false);
+                obj1.SetActive(false);
 
-                queue.Enqueue(obj);
+                queue.Enqueue(obj1);
             }
 
             PoolDictionary.Add(pools[i].tag, queue);
