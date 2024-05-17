@@ -20,8 +20,8 @@ public class PlayerController : InputController
         CallTargetEvent(targetPos);
     }
 
-    public void OnShoot(InputValue shoot)
+    public void OnShoot(InputValue value)
     {
-
+        IsAttacking = value.isPressed;
     }
 }

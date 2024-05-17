@@ -22,5 +22,5 @@ MonoBehaviour:
     m_Bits: 512
   spread: 0
   numberOfBulletsPerShot: 1
-  multipleBulletsAngle: 0
+  multipleBulletsAngle: 7
   bulletColor: {r: 1, g: 1, b: 1, a: 1}

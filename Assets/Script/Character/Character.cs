@@ -1,23 +1,17 @@
-using System;
 using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    //기본 필드 : 속도나 파워가 바뀔때 필요
-    protected float Speed { get; set; } = 3f;
-    protected float Power { get; set; } = 1f;
-
-    [SerializeField] protected GameObject bullet;  //오브젝트 풀링 필요
-
     protected Rigidbody2D rgb2D;
     protected Vector2 characterMovement;
     protected Vector2 targetRotation;
-    public bool isDead { get; protected set; }
+
+    protected CharacterStatsHandler statsHandler;
 
     protected virtual void Awake()
     {
         rgb2D = GetComponent<Rigidbody2D>();
-
+        statsHandler = GetComponent<CharacterStatsHandler>();
     }
 
     protected virtual void FixedUpdate()
@@ -26,9 +20,10 @@ public class Character : MonoBehaviour
         ViewTarget(targetRotation);
     }
 
-    void Shooting()
+    protected virtual void Shooting(AttackSO attackSO)
     {
         //발사하는 총알 생성 (오브젝트 풀링)
+        //if(isShot) 총알발사
     }
     protected void Moving(Vector2 move)
     {
@@ -43,10 +38,9 @@ public class Character : MonoBehaviour
     }
 
 
-    public virtual void Dead()
+    protected virtual void Dead()
     {
-
+        //공통적으로 파괴를 하면 좋을 것 같은데
+        //연출차이로?
     }
-
-
 }
