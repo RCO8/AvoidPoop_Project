@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StartBtn : MonoBehaviour
+public class SelectBtn : MonoBehaviour
 {
-    public void StartGame()
+    public void SelectGame()
     {
-        SceneManager.LoadScene("SelectScene");
+        SceneManager.LoadScene("MainGameScene");
     }
 }
