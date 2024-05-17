@@ -4,6 +4,7 @@ using UnityEngine;
 public class AttackSO : ScriptableObject
 {
     [Header("Attack Info")]
+    public string bulletNameTag;
     public float size;
     public float delay;
     public float power;
