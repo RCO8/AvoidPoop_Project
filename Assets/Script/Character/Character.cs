@@ -6,7 +6,7 @@ public class Character : MonoBehaviour
     protected float Speed { get; set; } = 3f;
     protected float Power { get; set; } = 1f;
 
-    [SerializeField] private GameObject bullet;  //오브젝트 풀링 필요
+
 
     protected Rigidbody2D rgb2D;
     protected Vector2 characterMovement;
