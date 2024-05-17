@@ -31,4 +31,9 @@ public class Item : MonoBehaviour
 
         rigidbody.velocity = new Vector2(x * speed, y * speed);
     }
+
+    public void Initialize()
+    {
+
+    }
 }
