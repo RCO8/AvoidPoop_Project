@@ -20,7 +20,15 @@ public class Item : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
+        LandomSpawn();
         Launch();
+    }
+
+    private void LandomSpawn()
+    {
+        float x = Random.Range(-9f, 9f);
+        float y = Random.Range(-5f, 5f);
+        transform.position = new Vector3(x, y, 0);
     }
 
     private void Launch()
