@@ -62,23 +62,37 @@ public class GameManager : MonoBehaviour
 
     Vector2 GenerateRandomPositionOutsideScreen() 
     {
-        float screenLeft = 0f; //화면 왼쪽 경계
-        float screenRight = screenWidth; //화면 오른쪽 경계
-        float screenTop = screenHeight; //화면 윗쪽 경계
-        //float screenBottom = 0f; //화면 아랫쪽 경계
-
-        // 위쪽 경계 선택
-        float screenBottom = screenTop;
+        float screenLeft = 0f; // 화면 왼쪽 경계
+        float screenRight = screenWidth; // 화면 오른쪽 경계
+        float screenTop = screenHeight; // 화면 상단 경계
+        float screenBottom = 0f; // 화면 하단 경계
 
         Vector2 randomPosition = Vector2.zero; // 초기화된 랜덤 위치
+        // 화면 밖의 랜덤 위치를 생성하기 위한 랜덤한 경계 선택
+        int edge = Random.Range(0, 4);
 
         // 선택된 경계에 따라 랜덤 위치 설정
-        randomPosition = new Vector2(Random.Range(screenLeft, screenRight), screenTop + Random.Range(50f, 200f));
+        switch (edge)
+        {
+            case 0: // 왼쪽
+                randomPosition = new Vector2(screenLeft - Random.Range(50f, 200f), Random.Range(screenBottom, screenTop));
+                break;
+            case 1: // 오른쪽
+                randomPosition = new Vector2(screenRight + Random.Range(50f, 200f), Random.Range(screenBottom, screenTop));
+                break;
+            case 2: // 위
+                randomPosition = new Vector2(Random.Range(screenLeft, screenRight), screenTop + Random.Range(50f, 200f));
+                break;
+            case 3: // 아래
+                randomPosition = new Vector2(Random.Range(screenLeft, screenRight), screenBottom - Random.Range(50f, 200f));
+                break;
+        }
 
         return randomPosition; // 생성된 랜덤 위치 반환
     }
 
-    void ResultUI() //결과 UI 출력
+
+void ResultUI() //결과 UI 출력
     {
 
     }
