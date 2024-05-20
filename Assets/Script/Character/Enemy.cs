@@ -14,7 +14,7 @@ public class Enemy : Character
     protected override void Awake()
     {
         base.Awake();
-        pool = GameManager.instance.GetComponent<ObjectPool>();
+        pool = GameManager.Instance.GetComponent<ObjectPool>();
         rangeEnemyController = GetComponent<RangeEnemyController>();
     }
 

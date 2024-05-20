@@ -13,13 +13,11 @@ public enum EPosEnemy
     RANDEOM
 }
 
-
-
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private string playertag;
 
-    public static GameManager instance;
+    public static GameManager Instance;
 
     // 플레이어 가져오는 함수
     
@@ -33,8 +31,6 @@ public class GameManager : MonoBehaviour
     // 에너미 시간 주기.
     float spawntime;
     // 전체 시간
-    public Transform Player;
-
     float time;
     float score;
 
@@ -57,9 +53,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (null == instance)
+        if (null == Instance)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else

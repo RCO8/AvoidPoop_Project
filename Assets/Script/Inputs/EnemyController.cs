@@ -14,7 +14,7 @@ public partial class EnemyController : InputController
 
     protected virtual void Start()
     {
-        ClosestTarget = GameManager.instance.Player;
+        ClosestTarget = GameManager.Instance.Player;
     }
 
     protected virtual void FixedUpdate()
