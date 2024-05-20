@@ -494,6 +494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1341910980}
+  spawnRandius: 10
   timeTxt: {fileID: 224655280}
   bulletCountTxt: {fileID: 1334720887}
   windowOutEnemyTag: WindowOutEnemy

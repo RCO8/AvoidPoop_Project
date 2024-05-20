@@ -15,16 +15,14 @@ public enum EPosEnemy
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private string playertag;
-
     public static GameManager Instance;
 
     // 플레이어 가져오는 함수
-    
+
     //[SerializeField] private GameObject enemy;
 
     // 플레이어에 대한 위치정보
-    public Transform Player { get; private set; }
+    public Transform Player;
 
     public float spawnRandius = 10;
 
@@ -67,7 +65,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player = GameObject.FindGameObjectWithTag(playertag).transform; 
+
     }
 
     // Update is called once per frame
