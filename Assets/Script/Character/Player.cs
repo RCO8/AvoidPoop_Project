@@ -16,9 +16,10 @@ public class Player : Character
     protected override void Awake()
     {
         base.Awake();
+        pool = GameManager.instance.GetComponent<ObjectPool>();
+        
         controller = GetComponent<PlayerController>();
 
-        pool = GameManager.Instance.GetComponent<ObjectPool>();
     }
 
     private void Start()
