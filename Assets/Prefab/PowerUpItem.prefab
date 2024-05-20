@@ -163,3 +163,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   rigidbody: {fileID: 0}
+  itemSO: {fileID: 0}
+  manager: {fileID: 0}

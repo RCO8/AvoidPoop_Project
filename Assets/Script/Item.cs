@@ -14,7 +14,6 @@ public class Item : MonoBehaviour
     public float speed;
     
     public Rigidbody2D rigidbody;
-
     public ItemSO itemSO;
 
     void Start()
