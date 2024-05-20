@@ -123,7 +123,7 @@
                 {
                     "name": "",
                     "id": "e291baa1-9ee8-4c65-8594-7ba257a5baef",
-                    "path": "<Keyboard>/leftCtrl",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -145,7 +145,7 @@
                 {
                     "name": "up",
                     "id": "1eff3eba-663d-4c4f-9fb9-bde3f5833ceb",
-                    "path": "<Keyboard>/w",
+                    "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -156,7 +156,7 @@
                 {
                     "name": "down",
                     "id": "217acc1d-cf49-4f8f-800e-6e76882e973c",
-                    "path": "<Keyboard>/s",
+                    "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -167,7 +167,7 @@
                 {
                     "name": "left",
                     "id": "d8433e51-0df8-4c2d-a7db-ab3e26b0e40d",
-                    "path": "<Keyboard>/a",
+                    "path": "<Keyboard>/j",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -178,7 +178,7 @@
                 {
                     "name": "right",
                     "id": "a17ee5e2-84af-42fb-bbc0-1633c95930b5",
-                    "path": "<Keyboard>/d",
+                    "path": "<Keyboard>/l",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -215,6 +215,15 @@
                     "type": "Value",
                     "id": "499a7bbd-5ea1-47ab-833f-c5ae708402cb",
                     "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "TargetKey",
+                    "type": "Value",
+                    "id": "f4ce71e9-f5cc-4ee4-84a2-ce85d7c3e7d5",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -290,13 +299,68 @@
                 {
                     "name": "",
                     "id": "c4ba2703-7e2c-402a-9c60-2722a022f3da",
-                    "path": "<Keyboard>/rightCtrl",
+                    "path": "<Keyboard>/numpad0",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "bded2af4-a606-4771-8c32-136e0da2904e",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TargetKey",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "88d03b6b-79aa-4a79-b97c-c4311189099e",
+                    "path": "<Keyboard>/numpad8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TargetKey",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "e8271e5e-83e0-432f-994a-73daa58d6975",
+                    "path": "<Keyboard>/numpad5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TargetKey",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "0a22ffaf-fb4d-4c20-8b16-0ddfe839eafa",
+                    "path": "<Keyboard>/numpad4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TargetKey",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "5979ae99-af43-405c-b14d-f4587ec0e0ff",
+                    "path": "<Keyboard>/numpad6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TargetKey",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

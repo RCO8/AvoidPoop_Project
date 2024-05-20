@@ -35,10 +35,18 @@ public class Player : Character
     {
         rgb2D.velocity = characterMovement.normalized * statsHandler.CurrentStat.speed;
     }
-    private void PlayerTarget() //마우스 방향 조준
+    private void PlayerTarget() 
     {
+        //마우스 방향 조준
+        //float rotZ = Mathf.Atan2(targetRotation.y, targetRotation.x) * Mathf.Rad2Deg;
+        //targetPivot.rotation = Quaternion.Euler(0, 0, rotZ);
+
+        // TODO : 완만한 회전을 적용함
         float rotZ = Mathf.Atan2(targetRotation.y, targetRotation.x) * Mathf.Rad2Deg;
-        targetPivot.rotation = Quaternion.Euler(0, 0, rotZ);
+        Quaternion from = transform.localRotation;
+        Quaternion to = Quaternion.Euler(0, 0, rotZ);
+        transform.localRotation = Quaternion.Slerp(from, to, 1f);
+
     }
 
 
