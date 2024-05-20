@@ -15,7 +15,7 @@ public class InputController : MonoBehaviour
 
     protected CharacterStatsHandler stats { get; private set; }
 
-    protected virtual void Awake()
+    private void Awake()
     {
         stats = GetComponent<CharacterStatsHandler>();
     }

@@ -50,7 +50,7 @@ public class BulletController : MonoBehaviour
 
         gameObject.SetActive(false);
 
-        GameManager.instance.GetComponent<ObjectPool>().RetrieveObject(attackData.bulletNameTag, this.gameObject);
+        GameManager.Instance.GetComponent<ObjectPool>().RetrieveObject(attackData.bulletNameTag, this.gameObject);
     }
 
     private void UpdateBulletSprite()
