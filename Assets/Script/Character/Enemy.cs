@@ -33,6 +33,7 @@ public class Enemy : Character
 
     protected override void Shooting(AttackSO attackSO)
     {
+        Debug.Log("Emeny 슈팅");
         RangedAttackSO rangedAttackSO = attackSO as RangedAttackSO;
 
         if (null == rangedAttackSO)
