@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Diagnostics;
 
 public class BulletController : MonoBehaviour
 {
@@ -51,8 +52,6 @@ public class BulletController : MonoBehaviour
         gameObject.SetActive(false);
         isInWindow = false;
 
-        --GameManager.Instance.BulletCount;
-
         GameManager.Instance.GetComponent<ObjectPool>().RetrieveObject(attackData.bulletNameTag, this.gameObject);
     }
 
@@ -72,6 +71,9 @@ public class BulletController : MonoBehaviour
             //}
 
             DestroyBullet(collision.ClosestPoint(transform.position), fxOnDestroy);
+
+            if (gameObject.CompareTag("EnemyBullet"))
+                --GameManager.Instance.BulletCount;
         }
     }
 
@@ -87,14 +89,7 @@ public class BulletController : MonoBehaviour
 
     private void OnBecameInvisible()
     {
-        if (isInWindow && gameObject.activeSelf)
-            StartCoroutine(DestroyAfterWait());
-    }
-
-    IEnumerator DestroyAfterWait()
-    {
-        yield return new WaitForSeconds(1f);
-
-        DestroyBullet(Vector3.zero, false);
+        if (isInWindow)
+            DestroyBullet(Vector3.zero, false);
     }
 }
