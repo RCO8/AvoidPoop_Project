@@ -30,4 +30,16 @@ public class Item : MonoBehaviour
 
         rigidbody.velocity = new Vector2(x * speed, y * speed);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision) // 아이템이 플레이어에 충돌 시 삭제
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Player2"))
+        {
+            Destroy(gameObject);
+        }
+    }
 }
