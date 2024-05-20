@@ -238,7 +238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pools:
-  - tag: Bullet
+  - tag: PlayerBullet
     prefab: {fileID: 5975675928629426048, guid: 93f6eb3abbe204d41a628400a693355c, type: 3}
     size: 50
   - tag: EnemyBullet
