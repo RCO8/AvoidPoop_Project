@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 358f032d260bddc44855d30b0891c9d1, type: 3}
   m_Name: PlayerDefaultAttack
   m_EditorClassIdentifier: 
-  bulletNameTag: PlayerBullet
+  bulletNameTag: Bullet
   size: 1
   delay: 0.15
   power: 2

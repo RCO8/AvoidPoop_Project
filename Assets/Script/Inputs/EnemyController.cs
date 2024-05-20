@@ -2,7 +2,7 @@
 
 
 
-public partial class EnemyController : InputController
+public  class EnemyController : InputController
 {
 
     protected Transform ClosestTarget { get; private set; }

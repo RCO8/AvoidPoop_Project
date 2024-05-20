@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
                 //ReSpawn();
             }
 
-            bulletCountTxt.text = BulletCount.ToString();
+            //bulletCountTxt.text = BulletCount.ToString();
         }
 
         // 화면 밖에서 랜덤하게 생성되는 총알 만들기 - 화면밖 랜덤 좌표 생성
@@ -95,8 +95,8 @@ public class GameManager : MonoBehaviour
             Vector2 randomPosition = GenerateRandomPositionOutsideScreen(); //화면 밖 랜덤 위치 생성
             Debug.Log("Random Position Outside Screen: " + randomPosition); //생성된 위치 콘솔로 출력하기 (좌표)
 
-            obj = CurrentObjectPool.LinkedSpawnFromPool(windowOutEnemyTag);
-            obj.transform.position = randomPosition;
+            //obj = CurrentObjectPool.LinkedSpawnFromPool(windowOutEnemyTag);
+            //obj.transform.position = randomPosition;
 
             timeSinceLastSpawn = 0f; //생성시간 초기화
         }
