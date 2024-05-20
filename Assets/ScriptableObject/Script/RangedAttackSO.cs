@@ -7,5 +7,4 @@ public class RangedAttackSO : AttackSO
     public float spread;
     public int numberOfBulletsPerShot;
     public float multipleBulletsAngle;
-    public Color bulletColor;
 }
