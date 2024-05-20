@@ -3,21 +3,20 @@ using System.Collections;
 
 public class BulletController : MonoBehaviour
 {
-    private Rigidbody2D rigidBody;
-    private SpriteRenderer spriteRenderer;
-    private TrailRenderer trailRenderer;
+    protected Rigidbody2D rigidBody;
+    protected SpriteRenderer spriteRenderer;
+    protected AttackSO attackData;
+    protected Vector2 direction;
 
-    private AttackSO attackData;
-    private Vector2 direction;
+    protected bool isReady = false;
+    protected bool fxOnDestroy = true;
 
-    private bool isReady = false;
-    private bool fxOnDestroy = true;
+    private bool isInWindow = false;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        trailRenderer = GetComponent<TrailRenderer>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void FixedUpdate()
@@ -28,16 +27,16 @@ public class BulletController : MonoBehaviour
         rigidBody.velocity = direction * attackData.speed;
     }
 
-    public void InitailizeAttack(Vector2 direction, AttackSO attackData)
+    public virtual void InitailizeAttack(Vector2 direction, AttackSO attackData)
     {
         this.attackData = attackData;
         this.direction = direction;
 
         UpdateBulletSprite();
 
-        trailRenderer.Clear();
-
         transform.right = this.direction;
+
+        spriteRenderer.color = attackData.bulletColor;
 
         isReady = true;
     }
@@ -50,6 +49,7 @@ public class BulletController : MonoBehaviour
         }
 
         gameObject.SetActive(false);
+        isInWindow = false;
 
         GameManager.Instance.GetComponent<ObjectPool>().RetrieveObject(attackData.bulletNameTag, this.gameObject);
     }
@@ -73,9 +73,15 @@ public class BulletController : MonoBehaviour
         return value == (value | 1 << layer);
     }
 
+    private void OnBecameVisible()
+    {
+        isInWindow = true;
+    }
+
     private void OnBecameInvisible()
     {
-        StartCoroutine(DestroyAfterWait());
+        if (isInWindow)
+            StartCoroutine(DestroyAfterWait());
     }
 
     IEnumerator DestroyAfterWait()
