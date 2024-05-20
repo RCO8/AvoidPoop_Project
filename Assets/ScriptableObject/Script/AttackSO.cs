@@ -10,4 +10,5 @@ public class AttackSO : ScriptableObject
     public float power;
     public float speed;
     public LayerMask target;
+    public Color bulletColor;
 }
