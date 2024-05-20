@@ -51,5 +51,4 @@ public class InputController : MonoBehaviour
     {
         OnShootEvent?.Invoke(attackSO);
     }
-
 }
