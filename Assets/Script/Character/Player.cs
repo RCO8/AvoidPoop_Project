@@ -11,6 +11,9 @@ public class Player : Character
     private float speedTime = 5f;
     private float powerTime = 5f;
 
+    [SerializeField] private LayerMask wallLayer;
+    [SerializeField] private LayerMask itemLayer;
+
     protected override void Awake()
     {
         base.Awake();
@@ -55,14 +58,19 @@ public class Player : Character
         statsHandler.CurrentStat.speed = 5f;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            Dead();
-        }
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Enemy"))
+    //    {
+    //        Dead();
+    //    }
 
-        //만약 아이템을 먹으면 종류에 따라 업그레이드 함수로 이동
+    //    //만약 아이템을 먹으면 종류에 따라 업그레이드 함수로 이동
+    //}
+
+    private bool IsLayerMatched(int value, int layer)
+    {
+        return value == (value | 1 << layer);
     }
 
     protected override void Shooting(AttackSO attackSO)
