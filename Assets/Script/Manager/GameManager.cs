@@ -18,8 +18,11 @@ public class GameManager : MonoBehaviour
     public Text timeTxt;
     //public Text NowScore;
     //public Text BestScore;
+    [SerializeField] private Text bulletCountTxt;
 
     bool isPlay = true;
+
+    public int BulletCount { get; set; } = 0;
 
     public ObjectPool CurrentObjectPool { get; private set; }
 
@@ -52,6 +55,8 @@ public class GameManager : MonoBehaviour
         {
             time += Time.deltaTime;
             timeTxt.text = time.ToString("N2");
+
+            bulletCountTxt.text = BulletCount.ToString();
         }
 
         // 화면 밖에서 랜덤하게 생성되는 총알 만들기 - 화면밖 랜덤 좌표 생성

@@ -41,7 +41,7 @@ public class BulletController : MonoBehaviour
         isReady = true;
     }
 
-    private void DestroyBullet(bool createFX)
+    private void DestroyBullet(Vector3 position, bool createFX)
     {
         if (createFX)
         {
@@ -50,6 +50,8 @@ public class BulletController : MonoBehaviour
 
         gameObject.SetActive(false);
         isInWindow = false;
+
+        --GameManager.Instance.BulletCount;
 
         GameManager.Instance.GetComponent<ObjectPool>().RetrieveObject(attackData.bulletNameTag, this.gameObject);
     }
@@ -63,8 +65,13 @@ public class BulletController : MonoBehaviour
     {
         if (IsLayerMatched(attackData.target.value, collision.gameObject.layer))
         {
-            // 데미지
-            DestroyBullet(fxOnDestroy);
+            //HealthSystem healthSystem = collision.GetComponent<HealthSystem>();
+            //if (null != healthSystem)
+            //{
+            //    healthSystem.ChangeHealth(-attackData.power);
+            //}
+
+            DestroyBullet(collision.ClosestPoint(transform.position), fxOnDestroy);
         }
     }
 
@@ -80,7 +87,7 @@ public class BulletController : MonoBehaviour
 
     private void OnBecameInvisible()
     {
-        if (isInWindow)
+        if (isInWindow && gameObject.activeSelf)
             StartCoroutine(DestroyAfterWait());
     }
 
@@ -88,6 +95,6 @@ public class BulletController : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        DestroyBullet(false);
+        DestroyBullet(Vector3.zero, false);
     }
 }
