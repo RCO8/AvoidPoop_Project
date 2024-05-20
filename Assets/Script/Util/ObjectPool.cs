@@ -59,16 +59,4 @@ public class ObjectPool : MonoBehaviour
     {
         PoolDictionary[tag].Enqueue(obj);
     }
-
-    public GameObject LinkedSpawnFromPool(string tag)
-    {
-        if (!PoolDictionary.ContainsKey(tag))
-            return null;
-
-        obj = PoolDictionary[tag].Dequeue();
-        obj.SetActive(true);
-        PoolDictionary[tag].Enqueue(obj);
-
-        return obj;
-    }
 }

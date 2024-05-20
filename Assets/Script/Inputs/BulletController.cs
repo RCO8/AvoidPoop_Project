@@ -1,22 +1,22 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class BulletController : MonoBehaviour
 {
-    protected Rigidbody2D rigidBody;
-    protected SpriteRenderer spriteRenderer;
-    protected AttackSO attackData;
-    protected Vector2 direction;
+    private Rigidbody2D rigidBody;
+    private SpriteRenderer spriteRenderer;
+    private TrailRenderer trailRenderer;
 
-    protected bool isReady = false;
-    protected bool fxOnDestroy = true;
+    private AttackSO attackData;
+    private Vector2 direction;
 
-    private bool isInWindow = false;
+    private bool isReady = false;
+    private bool fxOnDestroy = true;
 
-    protected virtual void Awake()
+    private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        trailRenderer = GetComponent<TrailRenderer>();
     }
 
     private void FixedUpdate()
@@ -27,16 +27,16 @@ public class BulletController : MonoBehaviour
         rigidBody.velocity = direction * attackData.speed;
     }
 
-    public virtual void InitailizeAttack(Vector2 direction, AttackSO attackData)
+    public void InitailizeAttack(Vector2 direction, AttackSO attackData)
     {
         this.attackData = attackData;
         this.direction = direction;
 
         UpdateBulletSprite();
 
-        transform.right = this.direction;
+        trailRenderer.Clear();
 
-        spriteRenderer.color = attackData.bulletColor;
+        transform.right = this.direction;
 
         isReady = true;
     }
@@ -49,7 +49,6 @@ public class BulletController : MonoBehaviour
         }
 
         gameObject.SetActive(false);
-        isInWindow = false;
 
         GameManager.instance.GetComponent<ObjectPool>().RetrieveObject(attackData.bulletNameTag, this.gameObject);
     }
@@ -73,21 +72,9 @@ public class BulletController : MonoBehaviour
         return value == (value | 1 << layer);
     }
 
-    private void OnBecameVisible()
-    {
-        isInWindow = true;
-    }
-
     private void OnBecameInvisible()
     {
-        if (isInWindow)
-            StartCoroutine(DestroyAfterWait());
-    }
-
-    IEnumerator DestroyAfterWait()
-    {
-        yield return new WaitForSeconds(1f);
-
-        DestroyBullet(false);
+        //DestroyBullet(false);
+        Invoke("DestroyBullet", 1f);
     }
 }
