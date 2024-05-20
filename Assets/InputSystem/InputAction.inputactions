@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "TargetKey",
+                    "type": "Value",
+                    "id": "a7700933-e4fe-43de-8879-e4e5e2c6d1f2",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -91,6 +100,17 @@
                 },
                 {
                     "name": "",
+                    "id": "212c8b62-af2e-4dd1-bcc0-324417e3a222",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Target",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "04abd223-2519-47ce-b17d-d8e94e553b3d",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -102,14 +122,69 @@
                 },
                 {
                     "name": "",
-                    "id": "212c8b62-af2e-4dd1-bcc0-324417e3a222",
-                    "path": "<Mouse>/position",
+                    "id": "e291baa1-9ee8-4c65-8594-7ba257a5baef",
+                    "path": "<Keyboard>/leftCtrl",
                     "interactions": "",
                     "processors": "",
-                    "groups": "KeyboardMouse",
-                    "action": "Target",
+                    "groups": "",
+                    "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "60092fe6-3a43-4c44-ae11-0585b172e902",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TargetKey",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "1eff3eba-663d-4c4f-9fb9-bde3f5833ceb",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TargetKey",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "217acc1d-cf49-4f8f-800e-6e76882e973c",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TargetKey",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "d8433e51-0df8-4c2d-a7db-ab3e26b0e40d",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TargetKey",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "a17ee5e2-84af-42fb-bbc0-1633c95930b5",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TargetKey",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },
@@ -214,8 +289,8 @@
                 },
                 {
                     "name": "",
-                    "id": "7d05e9bf-9493-4ae8-9657-4c7186da0b04",
-                    "path": "<Mouse>/rightButton",
+                    "id": "c4ba2703-7e2c-402a-9c60-2722a022f3da",
+                    "path": "<Keyboard>/rightCtrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
