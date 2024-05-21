@@ -8,12 +8,19 @@ public class Character : MonoBehaviour
 
     protected CharacterStatsHandler statsHandler;
 
+    protected HealthSystem healthSystem;
+
     public bool IsDead {  get; protected set; }
 
     protected virtual void Awake()
     {
         rgb2D = GetComponent<Rigidbody2D>();
         statsHandler = GetComponent<CharacterStatsHandler>();
+        healthSystem = GetComponent<HealthSystem>();
+    }
+    protected virtual void Start()
+    {
+        healthSystem.OnDeath += Dead;
     }
 
     protected virtual void FixedUpdate()
@@ -38,7 +45,6 @@ public class Character : MonoBehaviour
     {
         targetRotation = target;
     }
-
 
     protected virtual void Dead()
     {
