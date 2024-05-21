@@ -7,6 +7,9 @@ public class Player : Character
     PlayerController controller;
     [SerializeField] Transform targetPivot;
 
+    [SerializeField] private GameObject LeftBoost;
+    [SerializeField] private GameObject RightBoost;
+
     // 속성 업그레이드 하면 일정 시간의 유효
     private float speedTime = 5f;
     private float powerTime = 5f;
@@ -36,6 +39,17 @@ public class Player : Character
 
     private void PlayerMoving() //플레이어만의 이동기능
     {
+        if (Vector2.zero == characterMovement)
+        {
+            LeftBoost.SetActive(false);
+            RightBoost.SetActive(false);
+        }
+        else
+        {
+            LeftBoost.SetActive(true);
+            RightBoost.SetActive(true);
+        }
+
         rgb2D.velocity = characterMovement.normalized * statsHandler.CurrentStat.speed;
     }
     private void PlayerTarget() 
@@ -76,6 +90,8 @@ public class Player : Character
 
     protected override void Shooting(AttackSO attackSO)
     {
+        //AudioManager.Instance.PlayEffect(shootClip);
+
         RangedAttackSO rangedAttackSO = attackSO as RangedAttackSO;
 
         if (null == rangedAttackSO)

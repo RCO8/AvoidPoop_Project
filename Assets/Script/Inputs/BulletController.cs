@@ -35,7 +35,7 @@ public class BulletController : MonoBehaviour
 
         UpdateBulletSprite();
 
-        transform.right = this.direction;
+        transform.up = this.direction;
 
         spriteRenderer.color = attackData.bulletColor;
 
