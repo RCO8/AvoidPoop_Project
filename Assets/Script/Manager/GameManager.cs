@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
         if (timeSinceLastSpawn >= spawnInterval)  //일정 시간 간격으로 실행하기
         {
             Vector2 randomPosition = GenerateRandomPositionOutsideScreen(); //화면 밖 랜덤 위치 생성
-            Debug.Log("Random Position Outside Screen: " + randomPosition); //생성된 위치 콘솔로 출력하기 (좌표)
+            //Debug.Log("Random Position Outside Screen: " + randomPosition); //생성된 위치 콘솔로 출력하기 (좌표)
 
             obj = CurrentObjectPool.LinkedSpawnFromPool(windowOutEnemyTag);
             obj.transform.position = randomPosition;
@@ -132,8 +132,7 @@ public class GameManager : MonoBehaviour
         return randomPosition; // 생성된 랜덤 위치 반환
     }
 
-
-void ResultUI() //결과 UI 출력
+    void ResultUI() //결과 UI 출력
     {
 
     }
