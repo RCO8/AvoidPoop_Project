@@ -24,4 +24,9 @@ public class PlayerController : InputController
     {
         IsAttacking = value.isPressed;
     }
+
+    public override void DestroyObject()
+    {
+
+    }
 }

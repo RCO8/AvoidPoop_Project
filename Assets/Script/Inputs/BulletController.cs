@@ -64,11 +64,11 @@ public class BulletController : MonoBehaviour
     {
         if (IsLayerMatched(attackData.target.value, collision.gameObject.layer))
         {
-            //HealthSystem healthSystem = collision.GetComponent<HealthSystem>();
-            //if (null != healthSystem)
-            //{
-            //    healthSystem.ChangeHealth(-attackData.power);
-            //}
+            HealthSystem healthSystem = collision.GetComponent<HealthSystem>();
+            if (null != healthSystem)
+            {
+                healthSystem.ChangeHealth(-attackData.power);
+            }
 
             DestroyBullet(collision.ClosestPoint(transform.position), fxOnDestroy);
 

@@ -26,4 +26,9 @@ public partial class EnemyController : InputController
     {
         return (ClosestTarget.position - transform.position).normalized;
     }
+
+    public override void DestroyObject()
+    {
+
+    }
 }
