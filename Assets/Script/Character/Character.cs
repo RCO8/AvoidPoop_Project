@@ -13,6 +13,7 @@ public class Character : MonoBehaviour
     public bool IsDead {  get; protected set; }
 
     [SerializeField] protected AudioClip deathClip;
+    [SerializeField] protected AudioClip shootClip;
 
     protected virtual void Awake()
     {
