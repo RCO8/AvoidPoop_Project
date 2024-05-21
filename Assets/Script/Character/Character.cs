@@ -25,7 +25,7 @@ public class Character : MonoBehaviour
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         //if(collision.CompareTag("상대 bullet")) IsDead = true;
-        Debug.Log("총알 맞음 : "+ collision.tag);
+        //Debug.Log("총알 맞음 : "+ collision.tag);
     }
 
     protected virtual void Shooting(AttackSO attackSO)

@@ -66,6 +66,11 @@ public class Player : Character
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
+        if (collision.gameObject.layer == 8) //EnemyBullet
+        {
+            Debug.Log("플레이어 죽음");
+            Dead();
+        }
     }
 
     protected override void Shooting(AttackSO attackSO)
