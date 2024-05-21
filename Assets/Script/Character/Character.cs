@@ -12,6 +12,8 @@ public class Character : MonoBehaviour
 
     public bool IsDead {  get; protected set; }
 
+    [SerializeField] protected AudioClip deathClip;
+
     protected virtual void Awake()
     {
         rgb2D = GetComponent<Rigidbody2D>();
