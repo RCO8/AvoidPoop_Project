@@ -66,12 +66,16 @@ public class GameManager : MonoBehaviour
         CurrentObjectPool = GetComponent<ObjectPool>();
     }
 
+    void Start()
+    {
+        InvokeRepeating("ItemSpawnTime", 15f, 15f); // 15초 후 생성한 뒤 다시 15초마다 생성
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (isPlay)
         {
-            ItemSpawnTime();
             time += Time.deltaTime;
             timeTxt.text = time.ToString("N2");
 
@@ -83,6 +87,7 @@ public class GameManager : MonoBehaviour
             }
 
             bulletCountTxt.text = BulletCount.ToString();
+            //ItemSpawnTime();
         }
 
         // 화면 밖에서 랜덤하게 생성되는 총알 만들기 - 화면밖 랜덤 좌표 생성
@@ -139,12 +144,10 @@ public class GameManager : MonoBehaviour
         return randomPosition; // 생성된 랜덤 위치 반환
     }
 
-    public void ItemSpawnTime()
+    public void ItemSpawnTime() //아이템을 계속해서 생성시켜주는 함수
     {
-        if (time > 3)
-        {
-            itemspawnTime.SetActive(true);
-        }
+            GameObject itemSpawn = Instantiate(itemspawnTime);
+            itemSpawn.SetActive(true);
     }
 
     void ResultUI() //결과 UI 출력
