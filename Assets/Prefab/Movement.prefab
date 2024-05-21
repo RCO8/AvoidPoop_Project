@@ -84,10 +84,10 @@ MonoBehaviour:
   targetPivot: {fileID: 5282704033616423241}
   wallLayer:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 0
   itemLayer:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 0
 --- !u!114 &2166497485726819339
 MonoBehaviour:
   m_ObjectHideFlags: 0
