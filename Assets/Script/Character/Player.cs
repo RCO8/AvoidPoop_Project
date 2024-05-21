@@ -11,9 +11,6 @@ public class Player : Character
     private float speedTime = 5f;
     private float powerTime = 5f;
 
-    [SerializeField] private LayerMask wallLayer;
-    [SerializeField] private LayerMask itemLayer;
-
     protected override void Awake()
     {
         base.Awake();
@@ -21,8 +18,10 @@ public class Player : Character
         controller = GetComponent<PlayerController>();
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         controller.OnMoveEvent += Moving;
         controller.OnTargetEvent += ViewTarget;
         controller.OnShootEvent += Shooting;
@@ -53,7 +52,6 @@ public class Player : Character
 
     }
 
-
     // 이 메서드들은 업그레이드 하면 일정기간동안 적용되다가 원래로 리셋된다.
     private void PowerUp()
     {
@@ -75,11 +73,6 @@ public class Player : Character
 
     //    //만약 아이템을 먹으면 종류에 따라 업그레이드 함수로 이동
     //}
-
-    private bool IsLayerMatched(int value, int layer)
-    {
-        return value == (value | 1 << layer);
-    }
 
     protected override void Shooting(AttackSO attackSO)
     {
@@ -116,5 +109,19 @@ public class Player : Character
     private static Vector2 RotateVector2(Vector2 v, float angle)
     {
         return Quaternion.Euler(0f, 0f, angle) * v;
+    }
+
+    protected override void Dead()
+    {
+        //AudioManager.Instance.PlayEffect(deathClip);
+
+        StartCoroutine(OnDead());
+    }
+
+    IEnumerator OnDead()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        GameManager.Instance.EndGame();
     }
 }

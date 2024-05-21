@@ -20,8 +20,12 @@ public class Enemy : Character
         base.Awake();
         rangeEnemyController = GetComponent<RangeEnemyController>();
     }
-    private void Start()
+
+
+    protected override void Start()
     {
+        base.Start();
+
         rangeEnemyController.OnTargetEvent += ViewTarget;
         rangeEnemyController.OnShootEvent += Shooting;
         healthSystem.OnDeath += Dead;
