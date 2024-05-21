@@ -57,6 +57,8 @@ public class ObjectPool : MonoBehaviour
 
     public void RetrieveObject(string tag, GameObject obj)
     {
+        obj.SetActive(false);
+
         PoolDictionary[tag].Enqueue(obj);
     }
 

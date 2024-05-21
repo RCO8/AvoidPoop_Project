@@ -76,6 +76,8 @@ public class Player : Character
 
     protected override void Shooting(AttackSO attackSO)
     {
+        //AudioManager.Instance.PlayEffect(shootClip);
+
         RangedAttackSO rangedAttackSO = attackSO as RangedAttackSO;
 
         if (null == rangedAttackSO)
