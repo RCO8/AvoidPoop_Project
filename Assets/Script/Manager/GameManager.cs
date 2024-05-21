@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour
     // 전체 시간
     float time;
     float score;
-    float power;
 
     float spawnInterval = 1f;   // 생성 간격 (초)
     float timeSinceLastSpawn;   // 마지막 생성 이후 경과 시간
