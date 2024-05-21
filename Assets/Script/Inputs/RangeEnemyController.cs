@@ -4,10 +4,6 @@ using UnityEngine.UIElements;
 
 public class RangeEnemyController : EnemyController
 {
-    //[SerializeField][Range(0f, 100f)] private float followRange = 15f;
-    //[SerializeField][Range(0f, 100f)] private float ShootRange = 10f;
-
-
     private int layerMaskTarget;
 
     protected override void Start()
@@ -28,7 +24,6 @@ public class RangeEnemyController : EnemyController
     private void PrerformAttackAction(Vector2 directionToTarget)
     {
         CallTargetEvent(directionToTarget);
-        CallMoveEvent(Vector2.zero);
         IsAttacking = true;
     }
 }

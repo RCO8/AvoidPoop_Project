@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 358f032d260bddc44855d30b0891c9d1, type: 3}
   m_Name: EnemyDefaultAttack
   m_EditorClassIdentifier: 
-  bulletNameTag: Bullet
+  bulletNameTag: WindowOutBullet
   size: 1
-  delay: 1
+  delay: 5
   power: 3
   speed: 10
   target:
     serializedVersion: 2
     m_Bits: 1024
+  bulletColor: {r: 1, g: 0, b: 0, a: 1}
   spread: 0
   numberOfBulletsPerShot: 1
   multipleBulletsAngle: 7
-  bulletColor: {r: 1, g: 0, b: 0, a: 0}
