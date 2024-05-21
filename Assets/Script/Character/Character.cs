@@ -7,13 +7,14 @@ public class Character : MonoBehaviour
     protected Vector2 targetRotation = Vector2.right;
 
     protected CharacterStatsHandler statsHandler;
-
+    protected HealthSystem healthSystem;
     public bool IsDead {  get; protected set; }
 
     protected virtual void Awake()
     {
         rgb2D = GetComponent<Rigidbody2D>();
         statsHandler = GetComponent<CharacterStatsHandler>();
+        healthSystem = GetComponent<HealthSystem>();
     }
 
     protected virtual void FixedUpdate()

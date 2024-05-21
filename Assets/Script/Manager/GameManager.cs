@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
                 //ReSpawn();
             }
 
-            bulletCountTxt.text = BulletCount.ToString();
+            //bulletCountTxt.text = BulletCount.ToString();
         }
 
         // 화면 밖에서 랜덤하게 생성되는 총알 만들기 - 화면밖 랜덤 좌표 생성
@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
 
         Vector2 randomPosition = Vector2.zero; // 초기화된 랜덤 위치
         // 화면 밖의 랜덤 위치를 생성하기 위한 랜덤한 경계 선택
-        int edge = Random.Range(0, 4);
+        int edge = Random.Range(0, 5);
 
         // 선택된 경계에 따라 랜덤 위치 설정
         switch ((EnemyPos)edge)

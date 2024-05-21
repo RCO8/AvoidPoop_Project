@@ -53,6 +53,8 @@ public class HealthSystem : MonoBehaviour
         timeSinceLastChange = 0f;
         CurrentHP += change;
         // 최솟값 0, 최댓값 MaxHealth
+        Debug.Log(CurrentHP);
+        
         CurrentHP = Mathf.Clamp(CurrentHP, 0, MaxHealth);
 
         if (CurrentHP <= 0f)  //죽었을때 - 체력이 0이거나 작음
@@ -75,5 +77,10 @@ public class HealthSystem : MonoBehaviour
     private void CallDeath()
     {
         OnDeath?.Invoke();
+    }
+
+    public void ReSetHp()
+    {
+        CurrentHP = MaxHealth;
     }
 }
