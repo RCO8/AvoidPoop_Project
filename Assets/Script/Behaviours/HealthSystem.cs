@@ -37,7 +37,7 @@ public class HealthSystem : MonoBehaviour
             timeSinceLastChange += Time.deltaTime;
             if (timeSinceLastChange >= healthChangeDelay)
             {
-                OnInvincibilityEnd?.Invoke();
+                OnInvincibillityEnd?.Invoke();
                 isAttacked = false; //공격받은거 끝
             }
         }
@@ -55,7 +55,7 @@ public class HealthSystem : MonoBehaviour
         // 최솟값 0, 최댓값 MaxHealth
         CurrentHP = Mathf.Clamp(CurrentHP, 0, MaxHealth);
 
-        if (CurrentHealth <= 0f)  //죽었을때 - 체력이 0이거나 작음
+        if (CurrentHP <= 0f)  //죽었을때 - 체력이 0이거나 작음
         {
             CallDeath();
             return true;
