@@ -63,14 +63,9 @@ public class Player : Character
         statsHandler.CurrentStat.speed = 5f;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            Dead();
-        }
-
-        //만약 아이템을 먹으면 종류에 따라 업그레이드 함수로 이동
+        base.OnTriggerEnter2D(collision);
     }
 
     protected override void Shooting(AttackSO attackSO)
