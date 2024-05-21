@@ -563,6 +563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1341910980}
+  itemspawnTime: {fileID: 0}
   spawnRandius: 10
   timeTxt: {fileID: 224655280}
   BestScore: {fileID: 1210686767}
@@ -591,7 +592,7 @@ MonoBehaviour:
     prefab: {fileID: 5975675928629426048, guid: 91122b60ad5b49d48b9a57fc566803f2, type: 3}
     size: 50
   - tag: WindowOutEnemy
-    prefab: {fileID: 8306431132553249370, guid: a74e4ac9c3a56c94982c93ddabd17924, type: 3}
+    prefab: {fileID: 2266255060803514507, guid: dae2f5acf6184834abad6ee2adb591f2, type: 3}
     size: 100
 --- !u!1 &519420028
 GameObject:
@@ -2751,10 +2752,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Movement
       objectReference: {fileID: 0}
+    - target: {fileID: 1724063343197872722, guid: aa1f26fead9ca6047a60fe66de984d53, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2166497485726819339, guid: aa1f26fead9ca6047a60fe66de984d53, type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 3826716657575305720, guid: aa1f26fead9ca6047a60fe66de984d53, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5558350972476591440, guid: aa1f26fead9ca6047a60fe66de984d53, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5706639916158216392, guid: aa1f26fead9ca6047a60fe66de984d53, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
