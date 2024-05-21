@@ -4,7 +4,7 @@ public class Character : MonoBehaviour
 {
     protected Rigidbody2D rgb2D;
     protected Vector2 characterMovement;
-    protected Vector2 targetRotation;
+    protected Vector2 targetRotation = Vector2.right;
 
     protected CharacterStatsHandler statsHandler;
 

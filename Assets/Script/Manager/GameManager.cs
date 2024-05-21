@@ -1,14 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum EnemyPos
+{
+    LEFT,
+    RIGHT,
+    UP,
+    DOWN,
+    RANDEOM
+}
+
 public class GameManager : MonoBehaviour
 {
+    //게임매니저에 대한 인스턴스하는 변수
     public static GameManager Instance;
 
+    // 플레이어에 대한 위치정보
     public Transform Player;
 
+    // 플레이어에 반경에서 나오는 게하는 함수
+    public float spawnRandius = 10;
+
+    // 에너미 시간 주기.
+    float spawntime;
+    // 전체 시간
     float time;
     float score;
 
@@ -18,8 +36,11 @@ public class GameManager : MonoBehaviour
     public Text timeTxt;
     //public Text NowScore;
     //public Text BestScore;
+    [SerializeField] private Text bulletCountTxt;
 
     bool isPlay = true;
+    // 블렛을 카운트를 세는 함수
+    public int BulletCount { get; set; } = 0;
 
     public ObjectPool CurrentObjectPool { get; private set; }
 
@@ -39,12 +60,6 @@ public class GameManager : MonoBehaviour
         CurrentObjectPool = GetComponent<ObjectPool>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -52,6 +67,15 @@ public class GameManager : MonoBehaviour
         {
             time += Time.deltaTime;
             timeTxt.text = time.ToString("N2");
+
+            spawntime = time;
+
+            if(spawntime >1.5f)
+            {
+                //ReSpawn();
+            }
+
+            bulletCountTxt.text = BulletCount.ToString();
         }
 
         // 화면 밖에서 랜덤하게 생성되는 총알 만들기 - 화면밖 랜덤 좌표 생성
@@ -83,19 +107,25 @@ public class GameManager : MonoBehaviour
         int edge = Random.Range(0, 4);
 
         // 선택된 경계에 따라 랜덤 위치 설정
-        switch (edge)
+        switch ((EnemyPos)edge)
         {
-            case 0: // 왼쪽
+            case EnemyPos.LEFT: // 왼쪽
                 randomPosition = new Vector2(screenLeft.x - 1f, Random.Range(screenBottom.y, screenTop.y));
                 break;
-            case 1: // 오른쪽
+            case EnemyPos.RIGHT: // 오른쪽
                 randomPosition = new Vector2(screenRight.x + 1f, Random.Range(screenBottom.y, screenTop.y));
                 break;
-            case 2: // 위
+            case EnemyPos.UP: // 위
                 randomPosition = new Vector2(Random.Range(screenLeft.x, screenRight.x), screenTop.y + 1f);
                 break;
-            case 3: // 아래
+            case EnemyPos.DOWN: // 아래
                 randomPosition = new Vector2(Random.Range(screenLeft.x, screenRight.x), screenBottom.y - 1f);
+                break;
+            case EnemyPos.RANDEOM:
+                randomPosition = CreateEnemy();
+                break;
+            default:
+                Debug.Log("GenerateRandomPosition에 문제가 생김 GameManager에 문제가 생겼음"); 
                 break;
         }
 
@@ -105,5 +135,13 @@ public class GameManager : MonoBehaviour
     void ResultUI() //결과 UI 출력
     {
 
+    }
+
+   
+    Vector2 CreateEnemy()
+    {
+        Vector2 randomCircle = Random.insideUnitCircle * spawnRandius;
+        Vector2 spawnPosition = randomCircle +(Vector2)Player.transform.position;
+        return spawnPosition;
     }
 }
