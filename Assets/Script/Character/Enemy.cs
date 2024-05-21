@@ -2,24 +2,24 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UIElements;
 
 public class Enemy : Character
 {
     //System.Numerics.Vector2 createPos = System.Numerics.Vector2.Zero;   //적이 랜덤으로 생성할 위치
     RangeEnemyController rangeEnemyController;
     [SerializeField] Transform targetPivot;
-   
-    private ObjectPool pool;
+    private Vector2 aimDirection = Vector2.right;
 
     protected override void Awake()
     {
         base.Awake();
-        pool = GameManager.Instance.GetComponent<ObjectPool>();
         rangeEnemyController = GetComponent<RangeEnemyController>();
     }
 
     private void Start()
     {
+        rangeEnemyController.OnTargetEvent += ViewTarget;
         rangeEnemyController.OnShootEvent += Shooting;
     }
 
@@ -33,6 +33,7 @@ public class Enemy : Character
 
     protected override void Shooting(AttackSO attackSO)
     {
+        Debug.Log("Emeny 슈팅");
         RangedAttackSO rangedAttackSO = attackSO as RangedAttackSO;
 
         if (null == rangedAttackSO)
@@ -53,6 +54,8 @@ public class Enemy : Character
     }
     private void CreateBullet(RangedAttackSO rangedAttackSO, float angle)
     {
+        ObjectPool pool = GameManager.Instance.GetComponent<ObjectPool>();
+
         GameObject obj = pool.SpawnFromPool(rangedAttackSO.bulletNameTag);
 
         obj.transform.position = targetPivot.position;
@@ -65,4 +68,5 @@ public class Enemy : Character
     {
         return Quaternion.Euler(0f, 0f, angle) * v;
     }
+
 }
