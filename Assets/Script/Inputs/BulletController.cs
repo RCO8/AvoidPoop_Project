@@ -33,6 +33,8 @@ public class BulletController : MonoBehaviour
         this.attackData = attackData;
         this.direction = direction;
 
+        transform.rotation = Quaternion.Euler(direction);
+
         UpdateBulletSprite();
 
         transform.right = this.direction;
