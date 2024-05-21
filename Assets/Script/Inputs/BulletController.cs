@@ -71,9 +71,6 @@ public class BulletController : MonoBehaviour
             }
 
             DestroyBullet(collision.ClosestPoint(transform.position), fxOnDestroy);
-
-            if (gameObject.CompareTag("EnemyBullet"))
-                --GameManager.Instance.BulletCount;
         }
     }
 
