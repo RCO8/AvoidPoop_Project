@@ -132,8 +132,7 @@ public class GameManager : MonoBehaviour
         return randomPosition; // 생성된 랜덤 위치 반환
     }
 
-
-void ResultUI() //결과 UI 출력
+    void ResultUI() //결과 UI 출력
     {
 
     }
