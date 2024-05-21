@@ -16,6 +16,8 @@ public class Item : MonoBehaviour
     public Rigidbody2D rigidbody;
     public ItemSO itemSO;
 
+    float spawnTime;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();

@@ -21,6 +21,10 @@ public class GameManager : MonoBehaviour
     // 플레이어에 대한 위치정보
     public Transform Player;
 
+    public CharacterStatsHandler CharacterStats;
+
+    public GameObject itemspawnTime;
+
     // 플레이어에 반경에서 나오는 게하는 함수
     public float spawnRandius = 10;
 
@@ -29,11 +33,13 @@ public class GameManager : MonoBehaviour
     // 전체 시간
     float time;
     float score;
+    float power;
 
     float spawnInterval = 1f;   // 생성 간격 (초)
     float timeSinceLastSpawn;   // 마지막 생성 이후 경과 시간
 
     public Text timeTxt;
+
     //public Text NowScore;
     //public Text BestScore;
     [SerializeField] private Text bulletCountTxt;
@@ -65,6 +71,7 @@ public class GameManager : MonoBehaviour
     {
         if (isPlay)
         {
+            ItemSpawnTime();
             time += Time.deltaTime;
             timeTxt.text = time.ToString("N2");
 
@@ -130,6 +137,14 @@ public class GameManager : MonoBehaviour
         }
 
         return randomPosition; // 생성된 랜덤 위치 반환
+    }
+
+    public void ItemSpawnTime()
+    {
+        if (time > 3)
+        {
+            itemspawnTime.SetActive(true);
+        }
     }
 
     void ResultUI() //결과 UI 출력
