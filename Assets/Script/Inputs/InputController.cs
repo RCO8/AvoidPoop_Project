@@ -36,11 +36,6 @@ public class InputController : MonoBehaviour
         }
     }
 
-    public virtual void DestroyObject()
-    {
-
-    }
-
     //입력 시스템 Invoke
     public void CallMoveEvent(Vector2 move)
     {

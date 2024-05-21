@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum EnemyPos
@@ -21,10 +23,6 @@ public class GameManager : MonoBehaviour
     // 플레이어에 대한 위치정보
     public Transform Player;
 
-    public CharacterStatsHandler CharacterStats;
-
-    public GameObject itemspawnTime;
-
     // 플레이어에 반경에서 나오는 게하는 함수
     public float spawnRandius = 10;
 
@@ -32,16 +30,17 @@ public class GameManager : MonoBehaviour
     float spawntime;
     // 전체 시간
     float time;
-    float score;
+    float bestScore;
 
     float spawnInterval = 1f;   // 생성 간격 (초)
     float timeSinceLastSpawn;   // 마지막 생성 이후 경과 시간
 
     public Text timeTxt;
-
-    //public Text NowScore;
-    //public Text BestScore;
+    public Text BestScore;
     [SerializeField] private Text bulletCountTxt;
+    [SerializeField] private GameObject resultUI;
+    [SerializeField] private Text currentScoreTxt;
+    [SerializeField] private Text bestScoreTxt;
 
     bool isPlay = true;
     // 블렛을 카운트를 세는 함수
@@ -55,19 +54,22 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         if (null == Instance)
-        {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-            Destroy(gameObject);
 
         CurrentObjectPool = GetComponent<ObjectPool>();
     }
 
-    void Start()
+    private void Start()
     {
-        InvokeRepeating("ItemSpawnTime", 15f, 15f); // 15초 후 생성한 뒤 다시 15초마다 생성
+        Time.timeScale = 1f;
+        isPlay = true;
+
+        if (PlayerPrefs.HasKey("bestScore"))
+            bestScore = PlayerPrefs.GetFloat("bestScore");
+        else
+            bestScore = 0f;
+
+        BestScore.text = bestScore.ToString("N2");
     }
 
     // Update is called once per frame
@@ -80,32 +82,31 @@ public class GameManager : MonoBehaviour
 
             spawntime = time;
 
-            if(spawntime >1.5f)
+            if (spawntime > 1.5f)
             {
                 //ReSpawn();
             }
 
             bulletCountTxt.text = BulletCount.ToString();
-            //ItemSpawnTime();
-        }
 
-        // 화면 밖에서 랜덤하게 생성되는 총알 만들기 - 화면밖 랜덤 좌표 생성
+            // 화면 밖에서 랜덤하게 생성되는 총알 만들기 - 화면밖 랜덤 좌표 생성
 
-        timeSinceLastSpawn += Time.deltaTime; //경과 시간 업데이트
+            timeSinceLastSpawn += Time.deltaTime; //경과 시간 업데이트
 
-        if (timeSinceLastSpawn >= spawnInterval)  //일정 시간 간격으로 실행하기
-        {
-            Vector2 randomPosition = GenerateRandomPositionOutsideScreen(); //화면 밖 랜덤 위치 생성
-            //Debug.Log("Random Position Outside Screen: " + randomPosition); //생성된 위치 콘솔로 출력하기 (좌표)
+            if (timeSinceLastSpawn >= spawnInterval)  //일정 시간 간격으로 실행하기
+            {
+                Vector2 randomPosition = GenerateRandomPositionOutsideScreen(); //화면 밖 랜덤 위치 생성
+                                                                                //Debug.Log("Random Position Outside Screen: " + randomPosition); //생성된 위치 콘솔로 출력하기 (좌표)
 
-            obj = CurrentObjectPool.LinkedSpawnFromPool(windowOutEnemyTag);
-            obj.transform.position = randomPosition;
+                obj = CurrentObjectPool.LinkedSpawnFromPool(windowOutEnemyTag);
+                obj.transform.position = randomPosition;
 
-            timeSinceLastSpawn = 0f; //생성시간 초기화
+                timeSinceLastSpawn = 0f; //생성시간 초기화
+            }
         }
     }
 
-    Vector2 GenerateRandomPositionOutsideScreen() 
+    Vector2 GenerateRandomPositionOutsideScreen()
     {
         Vector2 screenRight = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height * 0.5f)); // 화면 오른쪽 경계
         Vector2 screenLeft = -screenRight; // 화면 왼쪽 경계
@@ -136,29 +137,50 @@ public class GameManager : MonoBehaviour
                 randomPosition = CreateEnemy();
                 break;
             default:
-                Debug.Log("GenerateRandomPosition에 문제가 생김 GameManager에 문제가 생겼음"); 
+                Debug.Log("GenerateRandomPosition에 문제가 생김 GameManager에 문제가 생겼음");
                 break;
         }
 
         return randomPosition; // 생성된 랜덤 위치 반환
     }
 
-    public void ItemSpawnTime() //아이템을 계속해서 생성시켜주는 함수
-    {
-            GameObject itemSpawn = Instantiate(itemspawnTime);
-            itemSpawn.SetActive(true);
-    }
-
     void ResultUI() //결과 UI 출력
     {
+        if (bestScore < time)
+        {
+            bestScore = time;
+            PlayerPrefs.SetFloat("bestScore", bestScore);
+        }
 
+        currentScoreTxt.text = time.ToString("N2");
+        bestScoreTxt.text = bestScore.ToString("N2");
+
+        resultUI.SetActive(true);
     }
 
-   
     Vector2 CreateEnemy()
     {
         Vector2 randomCircle = Random.insideUnitCircle * spawnRandius;
-        Vector2 spawnPosition = randomCircle +(Vector2)Player.transform.position;
+        Vector2 spawnPosition = randomCircle + (Vector2)Player.transform.position;
         return spawnPosition;
+    }
+
+    public void EndGame()
+    {
+        isPlay = false;
+
+        ResultUI();
+
+        Time.timeScale = 0f;
+    }
+
+    public void Retry()
+    {
+        SceneManager.LoadScene("MainGameScene");
+    }
+
+    public void GoToMenu()
+    {
+        SceneManager.LoadScene("IntroScene");
     }
 }
