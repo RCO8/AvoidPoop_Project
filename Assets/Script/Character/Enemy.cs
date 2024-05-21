@@ -17,8 +17,10 @@ public class Enemy : Character
         rangeEnemyController = GetComponent<RangeEnemyController>();
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         rangeEnemyController.OnTargetEvent += ViewTarget;
         rangeEnemyController.OnShootEvent += Shooting;
     }

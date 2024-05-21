@@ -21,8 +21,10 @@ public class Player : Character
         controller = GetComponent<PlayerController>();
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         controller.OnMoveEvent += Moving;
         controller.OnTargetEvent += ViewTarget;
         controller.OnShootEvent += Shooting;
@@ -52,7 +54,6 @@ public class Player : Character
         transform.localRotation = Quaternion.Slerp(from, to, 1f);
 
     }
-
 
     // 이 메서드들은 업그레이드 하면 일정기간동안 적용되다가 원래로 리셋된다.
     private void PowerUp()
@@ -116,5 +117,17 @@ public class Player : Character
     private static Vector2 RotateVector2(Vector2 v, float angle)
     {
         return Quaternion.Euler(0f, 0f, angle) * v;
+    }
+
+    protected override void Dead()
+    {
+        StartCoroutine(OnDead());
+    }
+
+    IEnumerator OnDead()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        GameManager.Instance.EndGame();
     }
 }
