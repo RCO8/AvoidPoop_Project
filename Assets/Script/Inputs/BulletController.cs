@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Diagnostics;
 
 public class BulletController : MonoBehaviour
 {
@@ -48,9 +49,9 @@ public class BulletController : MonoBehaviour
 
         }
 
-        gameObject.SetActive(false);
         isInWindow = false;
-
+        gameObject.SetActive(false);
+        
         --GameManager.Instance.BulletCount;
 
         GameManager.Instance.GetComponent<ObjectPool>().RetrieveObject(attackData.bulletNameTag, this.gameObject);
@@ -65,11 +66,10 @@ public class BulletController : MonoBehaviour
     {
         if (IsLayerMatched(attackData.target.value, collision.gameObject.layer))
         {
-            //HealthSystem healthSystem = collision.GetComponent<HealthSystem>();
-            //if (null != healthSystem)
-            //{
-            //    healthSystem.ChangeHealth(-attackData.power);
-            //}
+            HealthSystem healthSystem = collision.GetComponent<HealthSystem>();
+
+            if (null != healthSystem)
+                healthSystem.ChangeHealth(-attackData.power);
 
             DestroyBullet(collision.ClosestPoint(transform.position), fxOnDestroy);
         }
@@ -87,14 +87,7 @@ public class BulletController : MonoBehaviour
 
     private void OnBecameInvisible()
     {
-        if (isInWindow && gameObject.activeSelf)
-            StartCoroutine(DestroyAfterWait());
-    }
-
-    IEnumerator DestroyAfterWait()
-    {
-        yield return new WaitForSeconds(1f);
-
-        DestroyBullet(Vector3.zero, false);
+        if (isInWindow)
+            DestroyBullet(Vector3.zero, false);
     }
 }
