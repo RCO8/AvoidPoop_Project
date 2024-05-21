@@ -54,12 +54,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         if (null == Instance)
-        {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-            Destroy(gameObject);
 
         CurrentObjectPool = GetComponent<ObjectPool>();
     }
