@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     // 플레이어에 대한 위치정보
     public Transform Player;
 
+    public GameObject itemspawnTime;
+
     // 플레이어에 반경에서 나오는 게하는 함수
     public float spawnRandius = 10;
 
@@ -70,6 +72,8 @@ public class GameManager : MonoBehaviour
             bestScore = 0f;
 
         BestScore.text = bestScore.ToString("N2");
+
+        InvokeRepeating("ItemSpawnTime", 15f, 15f);
     }
 
     // Update is called once per frame
@@ -142,6 +146,12 @@ public class GameManager : MonoBehaviour
         }
 
         return randomPosition; // 생성된 랜덤 위치 반환
+    }
+
+    public void ItemSpawnTime()
+    {
+        GameObject itemSpawn = Instantiate(itemspawnTime);
+        itemSpawn.SetActive(true);
     }
 
     void ResultUI() //결과 UI 출력
