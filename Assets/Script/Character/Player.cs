@@ -76,11 +76,6 @@ public class Player : Character
     //    //만약 아이템을 먹으면 종류에 따라 업그레이드 함수로 이동
     //}
 
-    private bool IsLayerMatched(int value, int layer)
-    {
-        return value == (value | 1 << layer);
-    }
-
     protected override void Shooting(AttackSO attackSO)
     {
         RangedAttackSO rangedAttackSO = attackSO as RangedAttackSO;

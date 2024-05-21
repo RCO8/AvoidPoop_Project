@@ -46,9 +46,9 @@ public class ObjectPool : MonoBehaviour
             return null;
 
         if (0 == PoolDictionary[tag].Count)
-            obj = Instantiate(pools[PoolIndexDictionary[tag]].prefab, transform);
-        else
-            obj = PoolDictionary[tag].Dequeue();
+            PoolDictionary[tag].Enqueue(Instantiate(pools[PoolIndexDictionary[tag]].prefab, transform));
+        
+        obj = PoolDictionary[tag].Dequeue();
         
         obj.SetActive(true);
 
