@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -86,7 +87,7 @@ public class GameManager : MonoBehaviour
 
             spawntime = time;
 
-            if(spawntime >1.5f)
+            if (spawntime > 1.5f)
             {
                 //ReSpawn();
             }
@@ -110,7 +111,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    Vector2 GenerateRandomPositionOutsideScreen() 
+    Vector2 GenerateRandomPositionOutsideScreen()
     {
         Vector2 screenRight = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height * 0.5f)); // 화면 오른쪽 경계
         Vector2 screenLeft = -screenRight; // 화면 왼쪽 경계
@@ -141,7 +142,7 @@ public class GameManager : MonoBehaviour
                 randomPosition = CreateEnemy();
                 break;
             default:
-                Debug.Log("GenerateRandomPosition에 문제가 생김 GameManager에 문제가 생겼음"); 
+                Debug.Log("GenerateRandomPosition에 문제가 생김 GameManager에 문제가 생겼음");
                 break;
         }
 
@@ -165,7 +166,7 @@ public class GameManager : MonoBehaviour
     Vector2 CreateEnemy()
     {
         Vector2 randomCircle = Random.insideUnitCircle * spawnRandius;
-        Vector2 spawnPosition = randomCircle +(Vector2)Player.transform.position;
+        Vector2 spawnPosition = randomCircle + (Vector2)Player.transform.position;
         return spawnPosition;
     }
 
@@ -180,7 +181,7 @@ public class GameManager : MonoBehaviour
 
     public void Retry()
     {
-        Start();
+        SceneManager.LoadScene("MainGameScene");
     }
 
     public void GoToMenu()
