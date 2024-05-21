@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 79347816152148418}
   - component: {fileID: 2575226226134035131}
   - component: {fileID: 439566544576586697}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PowerUpItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,4 +164,3 @@ MonoBehaviour:
   speed: 3
   rigidbody: {fileID: 0}
   itemSO: {fileID: 0}
-  manager: {fileID: 0}
