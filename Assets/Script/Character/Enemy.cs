@@ -47,7 +47,8 @@ public class Enemy : Character
         float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         //스프라이트에서 문제가 있어서 안쪽에서 90+더한 값으로 이동하게끔 만들었습니다.
-        transform.rotation = Quaternion.Euler(0, 0, rotZ + 90.0f);
+        
+        transform.rotation = Quaternion.Euler(0, 0, rotZ);
     }
 
     protected override void Shooting(AttackSO attackSO)
