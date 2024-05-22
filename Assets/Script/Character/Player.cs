@@ -7,12 +7,11 @@ public class Player : Character
     PlayerController controller;
     [SerializeField] Transform targetPivot;
 
-    // �Ӽ� ���׷��̵� �ϸ� ���� �ð��� ��ȿ
+    [SerializeField] private GameObject LeftBoost;
+    [SerializeField] private GameObject RightBoost;
+
     private float speedTime = 5f;
     private float powerTime = 5f;
-
-    [SerializeField] private LayerMask wallLayer;
-    [SerializeField] private LayerMask itemLayer;
 
     protected override void Awake()
     {
@@ -21,8 +20,10 @@ public class Player : Character
         controller = GetComponent<PlayerController>();
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         controller.OnMoveEvent += Moving;
         controller.OnTargetEvent += ViewTarget;
         controller.OnShootEvent += Shooting;
@@ -37,6 +38,17 @@ public class Player : Character
 
     private void PlayerMoving() //�÷��̾�� �̵����
     {
+        if (Vector2.zero == characterMovement)
+        {
+            LeftBoost.SetActive(false);
+            RightBoost.SetActive(false);
+        }
+        else
+        {
+            LeftBoost.SetActive(true);
+            RightBoost.SetActive(true);
+        }
+
         rgb2D.velocity = characterMovement.normalized * statsHandler.CurrentStat.speed;
     }
     private void PlayerTarget() 
@@ -52,7 +64,6 @@ public class Player : Character
         transform.localRotation = Quaternion.Slerp(from, to, 1f);
 
     }
-
 
     // �� �޼������ ���׷��̵� �ϸ� �����Ⱓ���� ����Ǵٰ� ������ ���µȴ�.
     private void PowerUp()
@@ -76,13 +87,10 @@ public class Player : Character
         }
     }
 
-    private bool IsLayerMatched(int value, int layer)
-    {
-        return value == (value | 1 << layer);
-    }
-
     protected override void Shooting(AttackSO attackSO)
     {
+        //AudioManager.Instance.PlayEffect(shootClip);
+
         RangedAttackSO rangedAttackSO = attackSO as RangedAttackSO;
 
         if (null == rangedAttackSO)
@@ -116,5 +124,19 @@ public class Player : Character
     private static Vector2 RotateVector2(Vector2 v, float angle)
     {
         return Quaternion.Euler(0f, 0f, angle) * v;
+    }
+
+    protected override void Dead()
+    {
+        //AudioManager.Instance.PlayEffect(deathClip);
+
+        StartCoroutine(OnDead());
+    }
+
+    IEnumerator OnDead()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        GameManager.Instance.EndGame();
     }
 }
