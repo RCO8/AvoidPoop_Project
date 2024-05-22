@@ -43,6 +43,10 @@ public class Item : MonoBehaviour
     {
         if (IsLayerMatched(itemSO.target.value, collision.gameObject.layer))
         {
+            Player player = collision.gameObject.GetComponent<Player>();
+            if (null != player)
+                player.RootItem(itemSO);
+
             Destroy(gameObject);
         }
     }

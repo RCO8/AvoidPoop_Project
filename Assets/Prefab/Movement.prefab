@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7065859647785575151}
   - component: {fileID: 4391312829744363753}
   - component: {fileID: 726788031823476079}
+  - component: {fileID: 2050413392028310049}
   m_Layer: 6
   m_Name: Movement
   m_TagString: Player
@@ -128,7 +129,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!58 &8763640695376998787
 CircleCollider2D:
@@ -184,6 +185,8 @@ MonoBehaviour:
     power: 1
     attackSO: {fileID: 11400000, guid: 594a4a4be9d4e9d44ac567373b2e19e5, type: 2}
   statModifiers: []
+  currentBulletsPerShot: 0
+  canAttacked: 1
 --- !u!114 &4391312829744363753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,6 +212,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthChangeDelay: 0.5
+--- !u!114 &2050413392028310049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724063343197872722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15994905cdc940047addad7788e3d296, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3826716657575305720
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,6 +350,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5978669679367897359}
   - component: {fileID: 8864279675423056486}
+  - component: {fileID: 3871686431673252037}
   m_Layer: 6
   m_Name: Circle
   m_TagString: Untagged
@@ -409,6 +425,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &3871686431673252037
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5706639916158216392}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 456fd675612345b43a3ed5a1f28473b0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5836426558118304733
 GameObject:
   m_ObjectHideFlags: 0

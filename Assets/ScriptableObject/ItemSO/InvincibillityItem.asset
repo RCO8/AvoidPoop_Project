@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: InvincibillityItem
   m_EditorClassIdentifier: 
   increase: 0
-  type: 0
+  type: 2
   target:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64

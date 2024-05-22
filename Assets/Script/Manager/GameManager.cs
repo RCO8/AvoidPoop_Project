@@ -197,7 +197,7 @@ public class GameManager : MonoBehaviour
 
     public void InvincibilItemSpawnTime() // 무적 아이템 스폰확률
     {
-        int a = Random.RandomRange(0, 4);
+        int a = Random.RandomRange(0, 1);
         if (a == 0)
         {
             GameObject itemSpawn = Instantiate(invicibilItemspawnTime);
@@ -261,9 +261,11 @@ public class GameManager : MonoBehaviour
             case ItemType.SPEEDUP:
                 speedImg.SetActive(isTurn);
                 break;
-            case ItemType.Invincibillity:
-                invincibillityImg.SetActive(isTurn);
-                break;
         }
+    }
+
+    public void TurnInvincibillity(bool isTurn)
+    {
+        invincibillityImg.SetActive(isTurn);
     }
 }

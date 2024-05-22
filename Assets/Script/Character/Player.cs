@@ -10,13 +10,17 @@ public class Player : Character
     [SerializeField] private GameObject LeftBoost;
     [SerializeField] private GameObject RightBoost;
 
-    private float buffTime = 5f;
+    private float buffTime = 15f;
+    private float countdownTime = 0f;
+
+    PlayerAnimationController animationController;
 
     protected override void Awake()
     {
         base.Awake();
         
         controller = GetComponent<PlayerController>();
+        animationController = GetComponent<PlayerAnimationController>();
     }
 
     protected override void Start()
@@ -26,13 +30,21 @@ public class Player : Character
         controller.OnMoveEvent += Moving;
         controller.OnTargetEvent += ViewTarget;
         controller.OnShootEvent += Shooting;
-    }
+
+        countdownTime = 0f;
+}
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
         PlayerMoving();
         PlayerTarget();
+    }
+
+    private void Update()
+    {
+        if (0f < countdownTime)
+            countdownTime -= Time.deltaTime;
     }
 
     private void PlayerMoving()
@@ -59,7 +71,6 @@ public class Player : Character
         Quaternion from = transform.localRotation;
         Quaternion to = Quaternion.Euler(0, 0, rotZ);
         transform.localRotation = Quaternion.Slerp(from, to, 1f);
-
     }
 
     public void RootItem(ItemSO itemData)
@@ -78,10 +89,11 @@ public class Player : Character
                 statsHandler.currentBulletsPerShot += (int)itemData.increase;
                 break;
             case ItemType.Invincibillity:
-                statsHandler.canAttacked = false;
+                OnInvincibillity();
                 break;
         }
 
+        GameManager.Instance.SetPlayerUI(statsHandler);
         GameManager.Instance.TurnItem(itemData.type, true);
 
         yield return new WaitForSeconds(buffTime);
@@ -95,22 +107,36 @@ public class Player : Character
                 statsHandler.currentBulletsPerShot -= (int)itemData.increase;
                 break;
             case ItemType.Invincibillity:
-                statsHandler.canAttacked = true;
+                OffInvincibillity();
                 break;
         }
 
+        GameManager.Instance.SetPlayerUI(statsHandler);
         GameManager.Instance.TurnItem(itemData.type, false);
     }
 
-    //protected override void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    base.OnTriggerEnter2D(collision);
-    //    if (collision.gameObject.layer == 8) //EnemyBullet
-    //    {
-    //        Debug.Log("�÷��̾� ����");
-    //        Dead();
-    //    }
-    //}
+    private void OnInvincibillity()
+    {
+        if (statsHandler.canAttacked)
+        {
+            statsHandler.canAttacked = false;
+            animationController.OnInvincibillity();
+            GameManager.Instance.TurnInvincibillity(true);
+        }
+
+        countdownTime += buffTime;
+    }
+
+    private void OffInvincibillity()
+    {
+        if (0f >= countdownTime)
+        {
+            statsHandler.canAttacked = true;
+            animationController.OffInvincibillity();
+            GameManager.Instance.TurnInvincibillity(false);
+            countdownTime = 0f;
+        }
+    }
 
     protected override void Shooting(AttackSO attackSO)
     {
