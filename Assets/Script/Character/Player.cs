@@ -10,9 +10,7 @@ public class Player : Character
     [SerializeField] private GameObject LeftBoost;
     [SerializeField] private GameObject RightBoost;
 
-    // 속성 업그레이드 하면 일정 시간의 유효
-    private float speedTime = 5f;
-    private float powerTime = 5f;
+    private float buffTime = 5f;
 
     protected override void Awake()
     {
@@ -37,7 +35,7 @@ public class Player : Character
         PlayerTarget();
     }
 
-    private void PlayerMoving() //플레이어만의 이동기능
+    private void PlayerMoving()
     {
         if (Vector2.zero == characterMovement)
         {
@@ -54,11 +52,9 @@ public class Player : Character
     }
     private void PlayerTarget() 
     {
-        //마우스 방향 조준
         //float rotZ = Mathf.Atan2(targetRotation.y, targetRotation.x) * Mathf.Rad2Deg;
         //targetPivot.rotation = Quaternion.Euler(0, 0, rotZ);
 
-        // TODO : 완만한 회전을 적용함
         float rotZ = Mathf.Atan2(targetRotation.y, targetRotation.x) * Mathf.Rad2Deg;
         Quaternion from = transform.localRotation;
         Quaternion to = Quaternion.Euler(0, 0, rotZ);
@@ -66,26 +62,54 @@ public class Player : Character
 
     }
 
-    // 이 메서드들은 업그레이드 하면 일정기간동안 적용되다가 원래로 리셋된다.
-    private void PowerUp()
+    public void RootItem(ItemSO itemData)
     {
-        // 일정시간동안 Power를 2로
-        statsHandler.CurrentStat.power = 2f;
-    }
-    private void SpeedUp()
-    {
-        //일정시간동안 Speed를 5로
-        statsHandler.CurrentStat.speed = 5f;
+        StartCoroutine(StatsUPCor(itemData));
     }
 
-    //private void OnCollisionEnter2D(Collision2D collision)
+    private IEnumerator StatsUPCor(ItemSO itemData)
+    {
+        switch (itemData.type)
+        {
+            case ItemType.SPEEDUP:
+                statsHandler.CurrentStat.speed += (int)itemData.increase;
+                break;
+            case ItemType.POWERUP:
+                statsHandler.currentBulletsPerShot += (int)itemData.increase;
+                break;
+            case ItemType.Invincibillity:
+                statsHandler.canAttacked = false;
+                break;
+        }
+
+        GameManager.Instance.TurnItem(itemData.type, true);
+
+        yield return new WaitForSeconds(buffTime);
+
+        switch (itemData.type)
+        {
+            case ItemType.SPEEDUP:
+                statsHandler.CurrentStat.speed -= (int)itemData.increase;
+                break;
+            case ItemType.POWERUP:
+                statsHandler.currentBulletsPerShot -= (int)itemData.increase;
+                break;
+            case ItemType.Invincibillity:
+                statsHandler.canAttacked = true;
+                break;
+        }
+
+        GameManager.Instance.TurnItem(itemData.type, false);
+    }
+
+    //protected override void OnTriggerEnter2D(Collider2D collision)
     //{
-    //    if (collision.gameObject.CompareTag("Enemy"))
+    //    base.OnTriggerEnter2D(collision);
+    //    if (collision.gameObject.layer == 8) //EnemyBullet
     //    {
+    //        Debug.Log("占시뤄옙占싱억옙 占쏙옙占쏙옙");
     //        Dead();
     //    }
-
-    //    //만약 아이템을 먹으면 종류에 따라 업그레이드 함수로 이동
     //}
 
     protected override void Shooting(AttackSO attackSO)
@@ -98,7 +122,7 @@ public class Player : Character
             return;
 
         float BulletsAngleSpace = rangedAttackSO.multipleBulletsAngle;
-        int numberOfBulletsPerShot = rangedAttackSO.numberOfBulletsPerShot;
+        int numberOfBulletsPerShot = statsHandler.currentBulletsPerShot;
 
         float minAngle = (BulletsAngleSpace * 0.5f) - ((numberOfBulletsPerShot / 2f) * BulletsAngleSpace);
 
@@ -136,7 +160,7 @@ public class Player : Character
 
     IEnumerator OnDead()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
 
         GameManager.Instance.EndGame();
     }

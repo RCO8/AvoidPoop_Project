@@ -11,4 +11,5 @@ public class AttackSO : ScriptableObject
     public float speed;
     public LayerMask target;
     public Color bulletColor;
+    public string effectTag;
 }

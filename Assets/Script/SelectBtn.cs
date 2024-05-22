@@ -9,4 +9,14 @@ public class SelectBtn : MonoBehaviour
     {
         SceneManager.LoadScene("MainGameScene");
     }
+
+    public void SetPlayer(int player)
+    {
+        PlayerPrefs.SetInt("Player", player);
+    }
+
+    public void SetDifficalty(string diff)
+    {
+        PlayerPrefs.SetString("Difficalty", diff);
+    }
 }

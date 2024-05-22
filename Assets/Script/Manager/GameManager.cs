@@ -17,25 +17,27 @@ public enum EnemyPos
 
 public class GameManager : MonoBehaviour
 {
-    //°ÔÀÓ¸Å´ÏÀú¿¡ ´ëÇÑ ÀÎ½ºÅÏ½ºÇÏ´Â º¯¼ö
+    //ï¿½ï¿½ï¿½Ó¸Å´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
     public static GameManager Instance;
 
-    // ÇÃ·¹ÀÌ¾î¿¡ ´ëÇÑ À§Ä¡Á¤º¸
+    // ï¿½Ã·ï¿½ï¿½Ì¾î¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½
     public Transform Player;
 
-    public GameObject itemspawnTime;
+    public GameObject powerItemspawnTime;
+    public GameObject speedItemspawnTime;
+    public GameObject invicibilItemspawnTime;
 
-    // ÇÃ·¹ÀÌ¾î¿¡ ¹İ°æ¿¡¼­ ³ª¿À´Â °ÔÇÏ´Â ÇÔ¼ö
+    // ï¿½Ã·ï¿½ï¿½Ì¾î¿¡ ï¿½İ°æ¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
     public float spawnRandius = 10;
 
-    // ¿¡³Ê¹Ì ½Ã°£ ÁÖ±â.
+    // ï¿½ï¿½ï¿½Ê¹ï¿½ ï¿½Ã°ï¿½ ï¿½Ö±ï¿½.
     float spawntime;
-    // ÀüÃ¼ ½Ã°£
+    // ï¿½ï¿½Ã¼ ï¿½Ã°ï¿½
     float time;
     float bestScore;
 
-    float spawnInterval = 1f;   // »ı¼º °£°İ (ÃÊ)
-    float timeSinceLastSpawn;   // ¸¶Áö¸· »ı¼º ÀÌÈÄ °æ°ú ½Ã°£
+    float spawnInterval = 1f;   // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½)
+    float timeSinceLastSpawn;   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿?ï¿½Ã°ï¿½
 
     public Text timeTxt;
     public Text BestScore;
@@ -43,9 +45,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject resultUI;
     [SerializeField] private Text currentScoreTxt;
     [SerializeField] private Text bestScoreTxt;
+    [SerializeField] private Text speedTxt;
+    [SerializeField] private Text powerTxt;
+    [SerializeField] private GameObject powerImg;
+    [SerializeField] private GameObject speedImg;
+    [SerializeField] private GameObject invincibillityImg;
+
+    string nowDiff = "Easy";
+    int nowPlayer = 1;   //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Î¿ï¿½
+    [SerializeField] private GameObject Movement2;
 
     bool isPlay = true;
-    // ºí·¿À» Ä«¿îÆ®¸¦ ¼¼´Â ÇÔ¼ö
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
     public int BulletCount { get; set; } = 0;
 
     public ObjectPool CurrentObjectPool { get; private set; }
@@ -75,7 +86,26 @@ public class GameManager : MonoBehaviour
 
         BestScore.text = bestScore.ToString("N2");
 
-        InvokeRepeating("ItemSpawnTime", 15f, 15f);
+
+        InvokeRepeating("PowerItemSpawnTime", 3f, 7f); // ?Œì›Œ???„ì´???¤í° ê°„ê²©
+        InvokeRepeating("SpeedItemSpawnTime", 3f, 5f); // ?¤í”¼?œì—… ?„ì´???¤í° ê°„ê²©
+        InvokeRepeating("InvincibilItemSpawnTime", 5f, 15f); // ë¬´ì  ?„ì´???¤í° ê°„ê²©
+
+        if (PlayerPrefs.HasKey("Player"))
+        {
+            nowPlayer = PlayerPrefs.GetInt("Player");
+            if (nowPlayer == 2) Movement2.SetActive(true);
+            else Movement2.SetActive(false);
+        }
+
+        //Difficalty?¤ë? ë¡œë“œ
+        if(PlayerPrefs.HasKey("Difficalty"))
+        {
+            nowDiff = PlayerPrefs.GetString("Difficalty");
+            //Easy, Hard
+        }
+
+        SetPlayerUI(Player.gameObject.GetComponent<CharacterStatsHandler>());
     }
 
     // Update is called once per frame
@@ -95,14 +125,12 @@ public class GameManager : MonoBehaviour
 
             bulletCountTxt.text = BulletCount.ToString();
 
-            // È­¸é ¹Û¿¡¼­ ·£´ıÇÏ°Ô »ı¼ºµÇ´Â ÃÑ¾Ë ¸¸µé±â - È­¸é¹Û ·£´ı ÁÂÇ¥ »ı¼º
+            timeSinceLastSpawn += Time.deltaTime; 
 
-            timeSinceLastSpawn += Time.deltaTime; //°æ°ú ½Ã°£ ¾÷µ¥ÀÌÆ®
-
-            if (timeSinceLastSpawn >= spawnInterval)  //ÀÏÁ¤ ½Ã°£ °£°İÀ¸·Î ½ÇÇàÇÏ±â
+            if (timeSinceLastSpawn >= spawnInterval) 
             {
-                Vector2 randomPosition = GenerateRandomPositionOutsideScreen(); //È­¸é ¹Û ·£´ı À§Ä¡ »ı¼º
-                                                                                //Debug.Log("Random Position Outside Screen: " + randomPosition); //»ı¼ºµÈ À§Ä¡ ÄÜ¼Ö·Î Ãâ·ÂÇÏ±â (ÁÂÇ¥)
+                Vector2 randomPosition = GenerateRandomPositionOutsideScreen(); 
+                //Debug.Log("Random Position Outside Screen: " + randomPosition); 
 
                 obj = CurrentObjectPool.LinkedSpawnFromPool(windowOutEnemyTag);
                 obj.transform.position = randomPosition;
@@ -112,54 +140,75 @@ public class GameManager : MonoBehaviour
 
                 timeSinceLastSpawn = 0f; //»ı¼º½Ã°£ ÃÊ±âÈ­
             }
-
-            
-
         }
     }
 
     Vector2 GenerateRandomPositionOutsideScreen()
     {
-        Vector2 screenRight = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height * 0.5f)); // È­¸é ¿À¸¥ÂÊ °æ°è
-        Vector2 screenLeft = -screenRight; // È­¸é ¿ŞÂÊ °æ°è
+        Vector2 screenRight = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height * 0.5f)); 
+        Vector2 screenLeft = -screenRight; 
 
-        Vector2 screenTop = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width * 0.5f, Screen.height)); ; // È­¸é »ó´Ü °æ°è
-        Vector2 screenBottom = -screenTop; // È­¸é ÇÏ´Ü °æ°è
+        Vector2 screenTop = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width * 0.5f, Screen.height)); 
+        Vector2 screenBottom = -screenTop;
+
 
         Vector2 randomPosition = Vector2.zero; // ÃÊ±âÈ­µÈ ·£´ı À§Ä¡
         // È­¸é ¹ÛÀÇ ·£´ı À§Ä¡¸¦ »ı¼ºÇÏ±â À§ÇÑ ·£´ıÇÑ °æ°è ¼±ÅÃ
         int edge = Random.Range(0, 4);
 
-        // ¼±ÅÃµÈ °æ°è¿¡ µû¶ó ·£´ı À§Ä¡ ¼³Á¤
         switch ((EnemyPos)edge)
         {
-            case EnemyPos.LEFT: // ¿ŞÂÊ
+            case EnemyPos.LEFT: 
                 randomPosition = new Vector2(screenLeft.x - 1f, Random.Range(screenBottom.y, screenTop.y));
                 break;
-            case EnemyPos.RIGHT: // ¿À¸¥ÂÊ
+            case EnemyPos.RIGHT: 
                 randomPosition = new Vector2(screenRight.x + 1f, Random.Range(screenBottom.y, screenTop.y));
                 break;
-            case EnemyPos.UP: // À§
+            case EnemyPos.UP: 
                 randomPosition = new Vector2(Random.Range(screenLeft.x, screenRight.x), screenTop.y + 1f);
                 break;
-            case EnemyPos.DOWN: // ¾Æ·¡
+            case EnemyPos.DOWN:
                 randomPosition = new Vector2(Random.Range(screenLeft.x, screenRight.x), screenBottom.y - 1f);
                 break;
             default:
-                Debug.Log("GenerateRandomPosition¿¡ ¹®Á¦°¡ »ı±è GameManager¿¡ ¹®Á¦°¡ »ı°åÀ½");
+                Debug.Log("GenerateRandomPosition Error");
                 break;
         }
 
-        return randomPosition; // »ı¼ºµÈ ·£´ı À§Ä¡ ¹İÈ¯
+        return randomPosition; 
     }
 
-    public void ItemSpawnTime()
+    public void PowerItemSpawnTime() // ÆÄ¿ö¾÷ ¾ÆÀÌÅÛ ½ºÆùÈ®·ü
     {
-        GameObject itemSpawn = Instantiate(itemspawnTime);
-        itemSpawn.SetActive(true);
+        int a = Random.RandomRange(0, 4);
+        if (a == 0)
+        {
+            GameObject itemSpawn = Instantiate(powerItemspawnTime);
+            itemSpawn.SetActive(true);
+        } 
     }
 
-    void ResultUI() //°á°ú UI Ãâ·Â
+    public void SpeedItemSpawnTime() // ½ºÇÇµå¾÷ ¾ÆÀÌÅÛ ½ºÆùÈ®·ü
+    {
+        int a = Random.RandomRange(0, 4);
+        if (a == 0)
+        {
+            GameObject itemSpawn = Instantiate(speedItemspawnTime);
+            itemSpawn.SetActive(true);
+        }
+    }
+
+    public void InvincibilItemSpawnTime() // ¹«Àû ¾ÆÀÌÅÛ ½ºÆùÈ®·ü
+    {
+        int a = Random.RandomRange(0, 4);
+        if (a == 0)
+        {
+            GameObject itemSpawn = Instantiate(invicibilItemspawnTime);
+            itemSpawn.SetActive(true);
+        }
+    }
+
+    void ResultUI()
     {
         if (bestScore < time)
         {
@@ -197,5 +246,27 @@ public class GameManager : MonoBehaviour
     public void GoToMenu()
     {
         SceneManager.LoadScene("IntroScene");
+    }
+
+    public void SetPlayerUI(CharacterStatsHandler playerStats)
+    {
+        speedTxt.text = playerStats.CurrentStat.speed.ToString();
+        powerTxt.text = playerStats.currentBulletsPerShot.ToString();
+    }
+
+    public void TurnItem(ItemType type, bool isTurn)
+    {
+        switch (type)
+        {
+            case ItemType.POWERUP:
+                powerImg.SetActive(isTurn);
+                break;
+            case ItemType.SPEEDUP:
+                speedImg.SetActive(isTurn);
+                break;
+            case ItemType.Invincibillity:
+                invincibillityImg.SetActive(isTurn);
+                break;
+        }
     }
 }

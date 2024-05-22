@@ -32,6 +32,12 @@ public class Character : MonoBehaviour
         ViewTarget(targetRotation);
     }
 
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+        //if(collision.CompareTag("상대 bullet")) IsDead = true;
+        //Debug.Log("총알 맞음 : "+ collision.tag);
+    }
+
     protected virtual void Shooting(AttackSO attackSO)
     {
         //발사하는 총알 생성 (오브젝트 풀링)
