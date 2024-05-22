@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
             if (nowPlayer == 2) Movement2.SetActive(true);
             else Movement2.SetActive(false);
         }
-        //Difficaltyí‚¤ë¥¼ ë¡œë“œ
+        //Difficalty?¤ë? ë¡œë“œ
         if(PlayerPrefs.HasKey("Difficalty"))
         {
             nowDiff = PlayerPrefs.GetString("Difficalty");
@@ -167,7 +167,7 @@ public class GameManager : MonoBehaviour
         return randomPosition; 
     }
 
-    public void PowerItemSpawnTime() // ?Œì›Œ???„ì´???¤í°ë¥?
+    public void PowerItemSpawnTime() // ÆÄ¿ö¾÷ ¾ÆÀÌÅÛ ½ºÆùÈ®·ü
     {
         int a = Random.RandomRange(0, 4);
         if (a == 0)
@@ -177,7 +177,7 @@ public class GameManager : MonoBehaviour
         } 
     }
 
-    public void SpeedItemSpawnTime() // ?¤í”¼?œì—… ?„ì´???¤í°ë¥?
+    public void SpeedItemSpawnTime() // ½ºÇÇµå¾÷ ¾ÆÀÌÅÛ ½ºÆùÈ®·ü
     {
         int a = Random.RandomRange(0, 4);
         if (a == 0)
@@ -187,7 +187,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void InvincibilItemSpawnTime() // ë¬´ì  ?„ì´???¤í°ë¥?
+    public void InvincibilItemSpawnTime() // ¹«Àû ¾ÆÀÌÅÛ ½ºÆùÈ®·ü
     {
         int a = Random.RandomRange(0, 4);
         if (a == 0)
