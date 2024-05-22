@@ -8,4 +8,5 @@ public class ItemSO : ScriptableObject
     public float increase;
     public ItemType type;
     public LayerMask target;
+    public string itemTag;
 }

@@ -52,17 +52,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject invincibillityImg;
 
     string nowDiff = "Easy";
-    int nowPlayer = 1;   //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Î¿ï¿½
+    int nowPlayer = 1;   
     [SerializeField] private GameObject Movement2;
 
     bool isPlay = true;
-    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
+    
     public int BulletCount { get; set; } = 0;
 
     public ObjectPool CurrentObjectPool { get; private set; }
 
     private GameObject obj;
     [SerializeField] private string windowOutEnemyTag;
+    [SerializeField] private string enemyTag;
 
     private void Awake()
     {
@@ -84,10 +85,9 @@ public class GameManager : MonoBehaviour
 
         BestScore.text = bestScore.ToString("N2");
 
-
-        InvokeRepeating("PowerItemSpawnTime", 3f, 7f); // ?Œì›Œ???„ì´???¤í° ê°„ê²©
-        InvokeRepeating("SpeedItemSpawnTime", 3f, 5f); // ?¤í”¼?œì—… ?„ì´???¤í° ê°„ê²©
-        InvokeRepeating("InvincibilItemSpawnTime", 5f, 15f); // ë¬´ì  ?„ì´???¤í° ê°„ê²©
+        //InvokeRepeating("PowerItemSpawnTime", 3f, 7f); // ?Œì›Œ???„ì´???¤í° ê°„ê²©
+        //InvokeRepeating("SpeedItemSpawnTime", 3f, 5f); // ?¤í”¼?œì—… ?„ì´???¤í° ê°„ê²©
+        //InvokeRepeating("InvincibilItemSpawnTime", 5f, 15f); // ë¬´ì  ?„ì´???¤í° ê°„ê²©
 
         if (PlayerPrefs.HasKey("Player"))
         {
@@ -101,6 +101,11 @@ public class GameManager : MonoBehaviour
         {
             nowDiff = PlayerPrefs.GetString("Difficalty");
             //Easy, Hard
+
+            if ("Easy" == nowDiff)
+                spawnInterval = 5f;
+            else if ("Hard" == nowDiff)
+                spawnInterval = 1f;
         }
 
         SetPlayerUI(Player.gameObject.GetComponent<CharacterStatsHandler>());
@@ -114,12 +119,12 @@ public class GameManager : MonoBehaviour
             time += Time.deltaTime;
             timeTxt.text = time.ToString("N2");
 
-            spawntime = time;
+            //spawntime = time;
 
-            if (spawntime > 1.5f)
-            {
-                //ReSpawn();
-            }
+            //if (spawntime > 1.5f)
+            //{
+            //    //ReSpawn();
+            //}
 
             bulletCountTxt.text = BulletCount.ToString();
 
@@ -131,6 +136,11 @@ public class GameManager : MonoBehaviour
                 //Debug.Log("Random Position Outside Screen: " + randomPosition); 
 
                 obj = CurrentObjectPool.LinkedSpawnFromPool(windowOutEnemyTag);
+                obj.transform.position = randomPosition;
+
+                randomPosition = CreateEnemy();
+
+                obj = CurrentObjectPool.SpawnFromPool(enemyTag);
                 obj.transform.position = randomPosition;
 
                 timeSinceLastSpawn = 0f;
@@ -148,7 +158,7 @@ public class GameManager : MonoBehaviour
 
         Vector2 randomPosition = Vector2.zero; 
         
-        int edge = Random.Range(0, 5);
+        int edge = Random.Range(0, 4);
 
         switch ((EnemyPos)edge)
         {
@@ -164,9 +174,6 @@ public class GameManager : MonoBehaviour
             case EnemyPos.DOWN:
                 randomPosition = new Vector2(Random.Range(screenLeft.x, screenRight.x), screenBottom.y - 1f);
                 break;
-            case EnemyPos.RANDEOM:
-                randomPosition = CreateEnemy();
-                break;
             default:
                 Debug.Log("GenerateRandomPosition Error");
                 break;
@@ -175,35 +182,35 @@ public class GameManager : MonoBehaviour
         return randomPosition; 
     }
 
-    public void PowerItemSpawnTime() // ÆÄ¿ö¾÷ ¾ÆÀÌÅÛ ½ºÆùÈ®·ü
-    {
-        int a = Random.RandomRange(0, 4);
-        if (a == 0)
-        {
-            GameObject itemSpawn = Instantiate(powerItemspawnTime);
-            itemSpawn.SetActive(true);
-        } 
-    }
+    //public void PowerItemSpawnTime() // ÆÄ¿ö¾÷ ¾ÆÀÌÅÛ ½ºÆùÈ®·ü
+    //{
+    //    int a = Random.RandomRange(0, 4);
+    //    if (a == 0)
+    //    {
+    //        GameObject itemSpawn = Instantiate(powerItemspawnTime);
+    //        itemSpawn.SetActive(true);
+    //    } 
+    //}
 
-    public void SpeedItemSpawnTime() // ½ºÇÇµå¾÷ ¾ÆÀÌÅÛ ½ºÆùÈ®·ü
-    {
-        int a = Random.RandomRange(0, 4);
-        if (a == 0)
-        {
-            GameObject itemSpawn = Instantiate(speedItemspawnTime);
-            itemSpawn.SetActive(true);
-        }
-    }
+    //public void SpeedItemSpawnTime() // ½ºÇÇµå¾÷ ¾ÆÀÌÅÛ ½ºÆùÈ®·ü
+    //{
+    //    int a = Random.RandomRange(0, 4);
+    //    if (a == 0)
+    //    {
+    //        GameObject itemSpawn = Instantiate(speedItemspawnTime);
+    //        itemSpawn.SetActive(true);
+    //    }
+    //}
 
-    public void InvincibilItemSpawnTime() // ¹«Àû ¾ÆÀÌÅÛ ½ºÆùÈ®·ü
-    {
-        int a = Random.RandomRange(0, 1);
-        if (a == 0)
-        {
-            GameObject itemSpawn = Instantiate(invicibilItemspawnTime);
-            itemSpawn.SetActive(true);
-        }
-    }
+    //public void InvincibilItemSpawnTime() // ¹«Àû ¾ÆÀÌÅÛ ½ºÆùÈ®·ü
+    //{
+    //    int a = Random.RandomRange(0, 1);
+    //    if (a == 0)
+    //    {
+    //        GameObject itemSpawn = Instantiate(invicibilItemspawnTime);
+    //        itemSpawn.SetActive(true);
+    //    }
+    //}
 
     void ResultUI()
     {

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f7519ce800ff1f4cbf2377a1f6f6434, type: 3}
   m_Name: EnemyNormalAttack
   m_EditorClassIdentifier: 
-  bulletNameTag: WindowOutBullet
+  bulletNameTag: EnemyBullet
   size: 1
   delay: 7
   power: 1

@@ -8,10 +8,10 @@ using Unity.VisualScripting.Antlr3.Runtime.Misc;
 
 public class Enemy : Character
 {
-    
     RangeEnemyController rangeEnemyController;
     
     [SerializeField] Transform targetPivot;
+    [SerializeField] List<string> itemTags;
     
     private Vector2 aimDirection = Vector2.right;
   
@@ -43,6 +43,8 @@ public class Enemy : Character
 
     protected override void Shooting(AttackSO attackSO)
     {
+        //AudioManager.Instance.PlayEffect(shootClip);
+
         // 디버그세팅
         // Debug.Log("Emeny 슈팅");
         RangedAttackSO rangedAttackSO = attackSO as RangedAttackSO;
@@ -84,16 +86,27 @@ public class Enemy : Character
         // 체력이 0이하일때 게임 오브젝트 비활성화하고 오브젝트풀에서 없애는 것을 목표로 하면될 거 같습니다.
         if (healthSystem.CurrentHP <= 0)
         {
+            //AudioManager.Instance.PlayEffect(deathClip);
+
+            ObjectPool currentObjectPool = GameManager.Instance.GetComponent<ObjectPool>();
+
+            int percent = Random.Range(0, 10);
+
+            if (5 > percent)
+            {
+                // 아이템 생성
+                GameObject item = currentObjectPool.SpawnFromPool(itemTags[Random.Range(0, 3)]);
+                item.transform.position = transform.position;
+            }
+
             // 그리고 비활성화
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
 
             // 체력을 원상복구
             healthSystem.ReSetHp();
 
-            //게임 매니저를 통해서 그 오브젝트 플이 있으면 다시 집어 넣는 다. 
-            GameManager.Instance.GetComponent<ObjectPool>().RetrieveObject(gameObject.tag, gameObject);
+            //게임 매니저를 통해서 그 오브젝트 플이 있으면 다시 집어 넣는 다.
+            currentObjectPool.RetrieveObject(gameObject.tag, gameObject);
         }
     }
-
-
 }

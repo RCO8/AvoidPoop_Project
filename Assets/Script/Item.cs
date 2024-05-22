@@ -20,7 +20,7 @@ public class Item : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-        LandomSpawn();
+        //LandomSpawn();
         Launch();
     }
 
@@ -47,7 +47,7 @@ public class Item : MonoBehaviour
             if (null != player)
                 player.RootItem(itemSO);
 
-            Destroy(gameObject);
+            GameManager.Instance.GetComponent<ObjectPool>().RetrieveObject(itemSO.itemTag, this.gameObject);
         }
     }
 
