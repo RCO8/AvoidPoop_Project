@@ -20,4 +20,5 @@ MonoBehaviour:
   target:
     serializedVersion: 2
     m_Bits: 0
-  bulletColor: {r: 1, g: 0, b: 0, a: 1}
+  bulletColor: {r: 1, g: 1, b: 1, a: 1}
+  effectTag: EnemyEffect

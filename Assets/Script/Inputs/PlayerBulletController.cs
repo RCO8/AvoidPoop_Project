@@ -8,13 +8,13 @@ public class PlayerBulletController : BulletController
     {
         base.Awake();
 
-        trailRenderer = GetComponent<TrailRenderer>();
+        //trailRenderer = GetComponent<TrailRenderer>();
     }
 
     public override void InitailizeAttack(Vector2 direction, AttackSO attackData)
     {
         base.InitailizeAttack(direction, attackData);
 
-        trailRenderer.Clear();
+        //trailRenderer.Clear();
     }
 }

@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     float bestScore;
 
     float spawnInterval = 1f;   // ���� ���� (��)
-    float timeSinceLastSpawn;   // ������ ���� ���� ��� �ð�
+    float timeSinceLastSpawn;   // ������ ���� ���� ���?�ð�
 
     public Text timeTxt;
     public Text BestScore;
@@ -83,7 +83,6 @@ public class GameManager : MonoBehaviour
 
         InvokeRepeating("ItemSpawnTime", 15f, 15f);
 
-        //SelectScene에서 선택한 Player키를 로드
         if (PlayerPrefs.HasKey("Player"))
         {
             nowPlayer = PlayerPrefs.GetInt("Player");
@@ -109,61 +108,56 @@ public class GameManager : MonoBehaviour
 
             bulletCountTxt.text = BulletCount.ToString();
 
-            // ȭ�� �ۿ��� �����ϰ� �����Ǵ� �Ѿ� ����� - ȭ��� ���� ��ǥ ����
+            timeSinceLastSpawn += Time.deltaTime; 
 
-            timeSinceLastSpawn += Time.deltaTime; //��� �ð� ������Ʈ
-
-            if (timeSinceLastSpawn >= spawnInterval)  //���� �ð� �������� �����ϱ�
+            if (timeSinceLastSpawn >= spawnInterval) 
             {
-                Vector2 randomPosition = GenerateRandomPositionOutsideScreen(); //ȭ�� �� ���� ��ġ ����
-                                                                                //Debug.Log("Random Position Outside Screen: " + randomPosition); //������ ��ġ �ַܼ� ����ϱ� (��ǥ)
+                Vector2 randomPosition = GenerateRandomPositionOutsideScreen(); 
+                //Debug.Log("Random Position Outside Screen: " + randomPosition); 
 
                 obj = CurrentObjectPool.LinkedSpawnFromPool(windowOutEnemyTag);
                 obj.transform.position = randomPosition;
 
-                timeSinceLastSpawn = 0f; //�����ð� �ʱ�ȭ
+                timeSinceLastSpawn = 0f;
             }
-
-
         }
     }
 
     Vector2 GenerateRandomPositionOutsideScreen()
     {
-        Vector2 screenRight = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height * 0.5f)); // ȭ�� ������ ���
-        Vector2 screenLeft = -screenRight; // ȭ�� ���� ���
+        Vector2 screenRight = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height * 0.5f)); 
+        Vector2 screenLeft = -screenRight; 
 
-        Vector2 screenTop = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width * 0.5f, Screen.height)); ; // ȭ�� ��� ���
-        Vector2 screenBottom = -screenTop; // ȭ�� �ϴ� ���
+        Vector2 screenTop = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width * 0.5f, Screen.height)); 
+        Vector2 screenBottom = -screenTop;
 
-        Vector2 randomPosition = Vector2.zero; // �ʱ�ȭ�� ���� ��ġ
-        // ȭ�� ���� ���� ��ġ�� �����ϱ� ���� ������ ��� ����
+        Vector2 randomPosition = Vector2.zero; 
+        
         int edge = Random.Range(0, 5);
 
-        // ���õ� ��迡 ���� ���� ��ġ ����
         switch ((EnemyPos)edge)
         {
-            case EnemyPos.LEFT: // ����
+            case EnemyPos.LEFT: 
                 randomPosition = new Vector2(screenLeft.x - 1f, Random.Range(screenBottom.y, screenTop.y));
                 break;
-            case EnemyPos.RIGHT: // ������
+            case EnemyPos.RIGHT: 
                 randomPosition = new Vector2(screenRight.x + 1f, Random.Range(screenBottom.y, screenTop.y));
                 break;
-            case EnemyPos.UP: // ��
+            case EnemyPos.UP: 
                 randomPosition = new Vector2(Random.Range(screenLeft.x, screenRight.x), screenTop.y + 1f);
                 break;
-            case EnemyPos.DOWN: // �Ʒ�
+            case EnemyPos.DOWN:
                 randomPosition = new Vector2(Random.Range(screenLeft.x, screenRight.x), screenBottom.y - 1f);
                 break;
             case EnemyPos.RANDEOM:
                 randomPosition = CreateEnemy();
                 break;
             default:
-                Debug.Log("GenerateRandomPosition�� ������ ���� GameManager�� ������ ������");
+                Debug.Log("GenerateRandomPosition Error");
                 break;
         }
 
-        return randomPosition; // ������ ���� ��ġ ��ȯ
+        return randomPosition; 
     }
 
     public void PowerItemSpawnTime()
@@ -173,7 +167,6 @@ public class GameManager : MonoBehaviour
         {
             GameObject itemSpawn = Instantiate(powerItemspawnTime);
             itemSpawn.SetActive(true);
-            Debug.Log("�������� �����Ǿ����ϴ�");
         } 
     }
 
@@ -184,11 +177,10 @@ public class GameManager : MonoBehaviour
         {
             GameObject itemSpawn = Instantiate(speedItemspawnTime);
             itemSpawn.SetActive(true);
-            Debug.Log("�������� �����Ǿ����ϴ�");
         }
     }
 
-    void ResultUI() //��� UI ���
+    void ResultUI()
     {
         if (bestScore < time)
         {
