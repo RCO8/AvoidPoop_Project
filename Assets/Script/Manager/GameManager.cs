@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text currentScoreTxt;
     [SerializeField] private Text bestScoreTxt;
 
+    string nowDiff = "Easy";
     int nowPlayer = 1;   //�÷��̾� �ο�
     [SerializeField] private GameObject Movement2;
 
@@ -89,6 +90,12 @@ public class GameManager : MonoBehaviour
             nowPlayer = PlayerPrefs.GetInt("Player");
             if (nowPlayer == 2) Movement2.SetActive(true);
             else Movement2.SetActive(false);
+        }
+        //Difficalty키를 로드
+        if(PlayerPrefs.HasKey("Difficalty"))
+        {
+            nowDiff = PlayerPrefs.GetString("Difficalty");
+            //Easy, Hard
         }
     }
 
