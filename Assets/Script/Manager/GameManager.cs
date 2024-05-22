@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject speedImg;
     [SerializeField] private GameObject invincibillityImg;
 
+    string nowDiff = "Easy";
     int nowPlayer = 1;   //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Î¿ï¿½
     [SerializeField] private GameObject Movement2;
 
@@ -96,6 +97,13 @@ public class GameManager : MonoBehaviour
         }
 
         SetPlayerUI(Player.gameObject.GetComponent<CharacterStatsHandler>());
+
+        //Difficalty?¤ë? ë¡œë“œ
+        if(PlayerPrefs.HasKey("Difficalty"))
+        {
+            nowDiff = PlayerPrefs.GetString("Difficalty");
+            //Easy, Hard
+        }
     }
 
     // Update is called once per frame
@@ -167,7 +175,7 @@ public class GameManager : MonoBehaviour
         return randomPosition; 
     }
 
-    public void PowerItemSpawnTime() // ?Œì›Œ???„ì´???¤í°ë¥?
+    public void PowerItemSpawnTime() // ÆÄ¿ö¾÷ ¾ÆÀÌÅÛ ½ºÆùÈ®·ü
     {
         int a = Random.RandomRange(0, 4);
         if (a == 0)
@@ -177,7 +185,7 @@ public class GameManager : MonoBehaviour
         } 
     }
 
-    public void SpeedItemSpawnTime() // ?¤í”¼?œì—… ?„ì´???¤í°ë¥?
+    public void SpeedItemSpawnTime() // ½ºÇÇµå¾÷ ¾ÆÀÌÅÛ ½ºÆùÈ®·ü
     {
         int a = Random.RandomRange(0, 4);
         if (a == 0)
@@ -187,7 +195,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void InvincibilItemSpawnTime() // ë¬´ì  ?„ì´???¤í°ë¥?
+    public void InvincibilItemSpawnTime() // ¹«Àû ¾ÆÀÌÅÛ ½ºÆùÈ®·ü
     {
         int a = Random.RandomRange(0, 4);
         if (a == 0)

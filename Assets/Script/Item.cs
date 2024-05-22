@@ -41,13 +41,14 @@ public class Item : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision) // 아이템이 플레이어에 충돌 시 삭제
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (IsLayerMatched(itemSO.target.value, collision.gameObject.layer))
         {
             Destroy(gameObject);
         }
-        else if (collision.gameObject.CompareTag("Player2"))
-        {
-            Destroy(gameObject);
-        }
+    }
+
+    private bool IsLayerMatched(int value, int layer)
+    {
+        return value == (value | 1 << layer);
     }
 }
