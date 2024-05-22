@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject powerItemspawnTime;
     public GameObject speedItemspawnTime;
+    public GameObject invicibilItemspawnTime;
 
     // �÷��̾ �ݰ濡�� ������ ���ϴ� �Լ�
     public float spawnRandius = 10;
@@ -78,10 +79,9 @@ public class GameManager : MonoBehaviour
         BestScore.text = bestScore.ToString("N2");
 
 
-        InvokeRepeating("PowerItemSpawnTime", 3f, 7f);
-        InvokeRepeating("SpeedItemSpawnTime", 3f, 5f);
-
-        InvokeRepeating("ItemSpawnTime", 15f, 15f);
+        InvokeRepeating("PowerItemSpawnTime", 3f, 7f); // 파워업 아이템 스폰 간격
+        InvokeRepeating("SpeedItemSpawnTime", 3f, 5f); // 스피드업 아이템 스폰 간격
+        InvokeRepeating("InvincibilItemSpawnTime", 5f, 15f); // 무적 아이템 스폰 간격
 
         //SelectScene에서 선택한 Player키를 로드
         if (PlayerPrefs.HasKey("Player"))
@@ -166,25 +166,36 @@ public class GameManager : MonoBehaviour
         return randomPosition; // ������ ���� ��ġ ��ȯ
     }
 
-    public void PowerItemSpawnTime()
+    public void PowerItemSpawnTime() // 파워업 아이템 스폰률
     {
         int a = Random.RandomRange(0, 4);
         if (a == 0)
         {
             GameObject itemSpawn = Instantiate(powerItemspawnTime);
             itemSpawn.SetActive(true);
-            Debug.Log("�������� �����Ǿ����ϴ�");
+            Debug.Log("아이템이 생성되었습니다");
         } 
     }
 
-    public void SpeedItemSpawnTime()
+    public void SpeedItemSpawnTime() // 스피드업 아이템 스폰률
     {
         int a = Random.RandomRange(0, 4);
         if (a == 0)
         {
             GameObject itemSpawn = Instantiate(speedItemspawnTime);
             itemSpawn.SetActive(true);
-            Debug.Log("�������� �����Ǿ����ϴ�");
+            Debug.Log("아이템이 생성되었습니다");
+        }
+    }
+
+    public void InvincibilItemSpawnTime() // 무적 아이템 스폰률
+    {
+        int a = Random.RandomRange(0, 4);
+        if (a == 0)
+        {
+            GameObject itemSpawn = Instantiate(invicibilItemspawnTime);
+            itemSpawn.SetActive(true);
+            Debug.Log("아이템이 생성되었습니다");
         }
     }
 
