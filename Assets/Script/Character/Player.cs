@@ -36,7 +36,7 @@ public class Player : Character
         PlayerTarget();
     }
 
-    private void PlayerMoving() //�÷��̾�� �̵����
+    private void PlayerMoving()
     {
         if (Vector2.zero == characterMovement)
         {
@@ -53,11 +53,9 @@ public class Player : Character
     }
     private void PlayerTarget() 
     {
-        //���콺 ���� ����
         //float rotZ = Mathf.Atan2(targetRotation.y, targetRotation.x) * Mathf.Rad2Deg;
         //targetPivot.rotation = Quaternion.Euler(0, 0, rotZ);
 
-        // TODO : �ϸ��� ȸ���� ������
         float rotZ = Mathf.Atan2(targetRotation.y, targetRotation.x) * Mathf.Rad2Deg;
         Quaternion from = transform.localRotation;
         Quaternion to = Quaternion.Euler(0, 0, rotZ);
@@ -65,15 +63,12 @@ public class Player : Character
 
     }
 
-    // �� �޼������ ���׷��̵� �ϸ� �����Ⱓ���� ����Ǵٰ� ������ ���µȴ�.
     private void PowerUp()
     {
-        // �����ð����� Power�� 2��
         statsHandler.CurrentStat.power = 2f;
     }
     private void SpeedUp()
     {
-        //�����ð����� Speed�� 5��
         statsHandler.CurrentStat.speed = 5f;
     }
 
@@ -135,7 +130,7 @@ public class Player : Character
 
     IEnumerator OnDead()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
 
         GameManager.Instance.EndGame();
     }
