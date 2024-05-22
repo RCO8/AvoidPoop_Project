@@ -167,7 +167,6 @@ public class GameManager : MonoBehaviour
         {
             GameObject itemSpawn = Instantiate(powerItemspawnTime);
             itemSpawn.SetActive(true);
-            Debug.Log("?„ì´?œì´ ?ì„±?˜ì—ˆ?µë‹ˆ??);
         } 
     }
 
@@ -178,7 +177,6 @@ public class GameManager : MonoBehaviour
         {
             GameObject itemSpawn = Instantiate(speedItemspawnTime);
             itemSpawn.SetActive(true);
-            Debug.Log("?„ì´?œì´ ?ì„±?˜ì—ˆ?µë‹ˆ??);
         }
     }
 
@@ -189,7 +187,6 @@ public class GameManager : MonoBehaviour
         {
             GameObject itemSpawn = Instantiate(invicibilItemspawnTime);
             itemSpawn.SetActive(true);
-            Debug.Log("?„ì´?œì´ ?ì„±?˜ì—ˆ?µë‹ˆ??);
         }
     }
 
