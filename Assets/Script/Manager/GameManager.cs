@@ -45,6 +45,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject resultUI;
     [SerializeField] private Text currentScoreTxt;
     [SerializeField] private Text bestScoreTxt;
+    [SerializeField] private Text speedTxt;
+    [SerializeField] private Text powerTxt;
+    [SerializeField] private GameObject powerImg;
+    [SerializeField] private GameObject speedImg;
+    [SerializeField] private GameObject invincibillityImg;
 
     string nowDiff = "Easy";
     int nowPlayer = 1;   //�÷��̾� �ο�
@@ -90,12 +95,15 @@ public class GameManager : MonoBehaviour
             if (nowPlayer == 2) Movement2.SetActive(true);
             else Movement2.SetActive(false);
         }
+
         //Difficalty?��? 로드
         if(PlayerPrefs.HasKey("Difficalty"))
         {
             nowDiff = PlayerPrefs.GetString("Difficalty");
             //Easy, Hard
         }
+
+        SetPlayerUI(Player.gameObject.GetComponent<CharacterStatsHandler>());
     }
 
     // Update is called once per frame
@@ -235,5 +243,27 @@ public class GameManager : MonoBehaviour
     public void GoToMenu()
     {
         SceneManager.LoadScene("IntroScene");
+    }
+
+    public void SetPlayerUI(CharacterStatsHandler playerStats)
+    {
+        speedTxt.text = playerStats.CurrentStat.speed.ToString();
+        powerTxt.text = playerStats.currentBulletsPerShot.ToString();
+    }
+
+    public void TurnItem(ItemType type, bool isTurn)
+    {
+        switch (type)
+        {
+            case ItemType.POWERUP:
+                powerImg.SetActive(isTurn);
+                break;
+            case ItemType.SPEEDUP:
+                speedImg.SetActive(isTurn);
+                break;
+            case ItemType.Invincibillity:
+                invincibillityImg.SetActive(isTurn);
+                break;
+        }
     }
 }

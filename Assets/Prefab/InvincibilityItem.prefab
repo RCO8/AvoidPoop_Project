@@ -162,5 +162,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  rigidbody: {fileID: 0}
-  itemSO: {fileID: 0}
+  itemSO: {fileID: 11400000, guid: ef2fc96fd044b434185b26e26c4f1250, type: 2}

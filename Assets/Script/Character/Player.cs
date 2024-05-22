@@ -10,8 +10,7 @@ public class Player : Character
     [SerializeField] private GameObject LeftBoost;
     [SerializeField] private GameObject RightBoost;
 
-    private float speedTime = 5f;
-    private float powerTime = 5f;
+    private float buffTime = 5f;
 
     protected override void Awake()
     {
@@ -63,24 +62,55 @@ public class Player : Character
 
     }
 
-    private void PowerUp()
+    public void RootItem(ItemSO itemData)
     {
-        statsHandler.CurrentStat.power = 2f;
-    }
-    private void SpeedUp()
-    {
-        statsHandler.CurrentStat.speed = 5f;
+        StartCoroutine(StatsUPCor(itemData));
     }
 
-    protected override void OnTriggerEnter2D(Collider2D collision)
+    private IEnumerator StatsUPCor(ItemSO itemData)
     {
-        base.OnTriggerEnter2D(collision);
-        if (collision.gameObject.layer == 8) //EnemyBullet
+        switch (itemData.type)
         {
-            Debug.Log("�÷��̾� ����");
-            Dead();
+            case ItemType.SPEEDUP:
+                statsHandler.CurrentStat.speed += (int)itemData.increase;
+                break;
+            case ItemType.POWERUP:
+                statsHandler.currentBulletsPerShot += (int)itemData.increase;
+                break;
+            case ItemType.Invincibillity:
+                statsHandler.canAttacked = false;
+                break;
         }
+
+        GameManager.Instance.TurnItem(itemData.type, true);
+
+        yield return new WaitForSeconds(buffTime);
+
+        switch (itemData.type)
+        {
+            case ItemType.SPEEDUP:
+                statsHandler.CurrentStat.speed -= (int)itemData.increase;
+                break;
+            case ItemType.POWERUP:
+                statsHandler.currentBulletsPerShot -= (int)itemData.increase;
+                break;
+            case ItemType.Invincibillity:
+                statsHandler.canAttacked = true;
+                break;
+        }
+
+        GameManager.Instance.TurnItem(itemData.type, false);
     }
+
+    //protected override void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    base.OnTriggerEnter2D(collision);
+    //    if (collision.gameObject.layer == 8) //EnemyBullet
+    //    {
+    //        Debug.Log("�÷��̾� ����");
+    //        Dead();
+    //    }
+    //}
 
     protected override void Shooting(AttackSO attackSO)
     {
@@ -92,7 +122,7 @@ public class Player : Character
             return;
 
         float BulletsAngleSpace = rangedAttackSO.multipleBulletsAngle;
-        int numberOfBulletsPerShot = rangedAttackSO.numberOfBulletsPerShot;
+        int numberOfBulletsPerShot = statsHandler.currentBulletsPerShot;
 
         float minAngle = (BulletsAngleSpace * 0.5f) - ((numberOfBulletsPerShot / 2f) * BulletsAngleSpace);
 
