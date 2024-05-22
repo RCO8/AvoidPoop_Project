@@ -5,10 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class SelectBtn : MonoBehaviour
 {
-    public void SelectGame(int player)
+    public void SelectGame()
+    {
+        SceneManager.LoadScene("MainGameScene");
+    }
+
+    public void SetPlayer(int player)
     {
         PlayerPrefs.SetInt("Player", player);
+    }
 
-        SceneManager.LoadScene("MainGameScene");
+    public void SetDifficalty(string diff)
+    {
+        PlayerPrefs.SetString("Difficalty", diff);
     }
 }
