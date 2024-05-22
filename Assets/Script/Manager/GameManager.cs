@@ -17,26 +17,26 @@ public enum EnemyPos
 
 public class GameManager : MonoBehaviour
 {
-    //°ÔÀÓ¸Å´ÏÀú¿¡ ´ëÇÑ ÀÎ½ºÅÏ½ºÇÏ´Â º¯¼ö
+    //ï¿½ï¿½ï¿½Ó¸Å´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
     public static GameManager Instance;
 
-    // ÇÃ·¹ÀÌ¾î¿¡ ´ëÇÑ À§Ä¡Á¤º¸
+    // ï¿½Ã·ï¿½ï¿½Ì¾î¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½
     public Transform Player;
 
     public GameObject powerItemspawnTime;
     public GameObject speedItemspawnTime;
 
-    // ÇÃ·¹ÀÌ¾î¿¡ ¹Ý°æ¿¡¼­ ³ª¿À´Â °ÔÇÏ´Â ÇÔ¼ö
+    // ï¿½Ã·ï¿½ï¿½Ì¾î¿¡ ï¿½Ý°æ¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
     public float spawnRandius = 10;
 
-    // ¿¡³Ê¹Ì ½Ã°£ ÁÖ±â.
+    // ï¿½ï¿½ï¿½Ê¹ï¿½ ï¿½Ã°ï¿½ ï¿½Ö±ï¿½.
     float spawntime;
-    // ÀüÃ¼ ½Ã°£
+    // ï¿½ï¿½Ã¼ ï¿½Ã°ï¿½
     float time;
     float bestScore;
 
-    float spawnInterval = 1f;   // »ý¼º °£°Ý (ÃÊ)
-    float timeSinceLastSpawn;   // ¸¶Áö¸· »ý¼º ÀÌÈÄ °æ°ú ½Ã°£
+    float spawnInterval = 1f;   // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½)
+    float timeSinceLastSpawn;   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
     public Text timeTxt;
     public Text BestScore;
@@ -45,8 +45,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text currentScoreTxt;
     [SerializeField] private Text bestScoreTxt;
 
+    int nowPlayer = 1;   //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Î¿ï¿½
+    [SerializeField] private GameObject Movement2;
+
     bool isPlay = true;
-    // ºí·¿À» Ä«¿îÆ®¸¦ ¼¼´Â ÇÔ¼ö
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
     public int BulletCount { get; set; } = 0;
 
     public ObjectPool CurrentObjectPool { get; private set; }
@@ -74,8 +77,19 @@ public class GameManager : MonoBehaviour
 
         BestScore.text = bestScore.ToString("N2");
 
+
         InvokeRepeating("PowerItemSpawnTime", 3f, 7f);
         InvokeRepeating("SpeedItemSpawnTime", 3f, 5f);
+
+        InvokeRepeating("ItemSpawnTime", 15f, 15f);
+
+        //SelectSceneì—ì„œ ì„ íƒí•œ Playerí‚¤ë¥¼ ë¡œë“œ
+        if (PlayerPrefs.HasKey("Player"))
+        {
+            nowPlayer = PlayerPrefs.GetInt("Player");
+            if (nowPlayer == 2) Movement2.SetActive(true);
+            else Movement2.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -95,19 +109,19 @@ public class GameManager : MonoBehaviour
 
             bulletCountTxt.text = BulletCount.ToString();
 
-            // È­¸é ¹Û¿¡¼­ ·£´ýÇÏ°Ô »ý¼ºµÇ´Â ÃÑ¾Ë ¸¸µé±â - È­¸é¹Û ·£´ý ÁÂÇ¥ »ý¼º
+            // È­ï¿½ï¿½ ï¿½Û¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½Ñ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ - È­ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½
 
-            timeSinceLastSpawn += Time.deltaTime; //°æ°ú ½Ã°£ ¾÷µ¥ÀÌÆ®
+            timeSinceLastSpawn += Time.deltaTime; //ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 
-            if (timeSinceLastSpawn >= spawnInterval)  //ÀÏÁ¤ ½Ã°£ °£°ÝÀ¸·Î ½ÇÇàÇÏ±â
+            if (timeSinceLastSpawn >= spawnInterval)  //ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
             {
-                Vector2 randomPosition = GenerateRandomPositionOutsideScreen(); //È­¸é ¹Û ·£´ý À§Ä¡ »ý¼º
-                                                                                //Debug.Log("Random Position Outside Screen: " + randomPosition); //»ý¼ºµÈ À§Ä¡ ÄÜ¼Ö·Î Ãâ·ÂÇÏ±â (ÁÂÇ¥)
+                Vector2 randomPosition = GenerateRandomPositionOutsideScreen(); //È­ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
+                                                                                //Debug.Log("Random Position Outside Screen: " + randomPosition); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½Ü¼Ö·ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ (ï¿½ï¿½Ç¥)
 
                 obj = CurrentObjectPool.LinkedSpawnFromPool(windowOutEnemyTag);
                 obj.transform.position = randomPosition;
 
-                timeSinceLastSpawn = 0f; //»ý¼º½Ã°£ ÃÊ±âÈ­
+                timeSinceLastSpawn = 0f; //ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ ï¿½Ê±ï¿½È­
             }
 
 
@@ -116,40 +130,40 @@ public class GameManager : MonoBehaviour
 
     Vector2 GenerateRandomPositionOutsideScreen()
     {
-        Vector2 screenRight = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height * 0.5f)); // È­¸é ¿À¸¥ÂÊ °æ°è
-        Vector2 screenLeft = -screenRight; // È­¸é ¿ÞÂÊ °æ°è
+        Vector2 screenRight = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height * 0.5f)); // È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+        Vector2 screenLeft = -screenRight; // È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
-        Vector2 screenTop = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width * 0.5f, Screen.height)); ; // È­¸é »ó´Ü °æ°è
-        Vector2 screenBottom = -screenTop; // È­¸é ÇÏ´Ü °æ°è
+        Vector2 screenTop = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width * 0.5f, Screen.height)); ; // È­ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+        Vector2 screenBottom = -screenTop; // È­ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½
 
-        Vector2 randomPosition = Vector2.zero; // ÃÊ±âÈ­µÈ ·£´ý À§Ä¡
-        // È­¸é ¹ÛÀÇ ·£´ý À§Ä¡¸¦ »ý¼ºÇÏ±â À§ÇÑ ·£´ýÇÑ °æ°è ¼±ÅÃ
+        Vector2 randomPosition = Vector2.zero; // ï¿½Ê±ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
+        // È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         int edge = Random.Range(0, 5);
 
-        // ¼±ÅÃµÈ °æ°è¿¡ µû¶ó ·£´ý À§Ä¡ ¼³Á¤
+        // ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½è¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
         switch ((EnemyPos)edge)
         {
-            case EnemyPos.LEFT: // ¿ÞÂÊ
+            case EnemyPos.LEFT: // ï¿½ï¿½ï¿½ï¿½
                 randomPosition = new Vector2(screenLeft.x - 1f, Random.Range(screenBottom.y, screenTop.y));
                 break;
-            case EnemyPos.RIGHT: // ¿À¸¥ÂÊ
+            case EnemyPos.RIGHT: // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 randomPosition = new Vector2(screenRight.x + 1f, Random.Range(screenBottom.y, screenTop.y));
                 break;
-            case EnemyPos.UP: // À§
+            case EnemyPos.UP: // ï¿½ï¿½
                 randomPosition = new Vector2(Random.Range(screenLeft.x, screenRight.x), screenTop.y + 1f);
                 break;
-            case EnemyPos.DOWN: // ¾Æ·¡
+            case EnemyPos.DOWN: // ï¿½Æ·ï¿½
                 randomPosition = new Vector2(Random.Range(screenLeft.x, screenRight.x), screenBottom.y - 1f);
                 break;
             case EnemyPos.RANDEOM:
                 randomPosition = CreateEnemy();
                 break;
             default:
-                Debug.Log("GenerateRandomPosition¿¡ ¹®Á¦°¡ »ý±è GameManager¿¡ ¹®Á¦°¡ »ý°åÀ½");
+                Debug.Log("GenerateRandomPositionï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ GameManagerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
                 break;
         }
 
-        return randomPosition; // »ý¼ºµÈ ·£´ý À§Ä¡ ¹ÝÈ¯
+        return randomPosition; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½È¯
     }
 
     public void PowerItemSpawnTime()
@@ -159,7 +173,7 @@ public class GameManager : MonoBehaviour
         {
             GameObject itemSpawn = Instantiate(powerItemspawnTime);
             itemSpawn.SetActive(true);
-            Debug.Log("¾ÆÀÌÅÛÀÌ »ý¼ºµÇ¾ú½À´Ï´Ù");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½");
         } 
     }
 
@@ -170,11 +184,11 @@ public class GameManager : MonoBehaviour
         {
             GameObject itemSpawn = Instantiate(speedItemspawnTime);
             itemSpawn.SetActive(true);
-            Debug.Log("¾ÆÀÌÅÛÀÌ »ý¼ºµÇ¾ú½À´Ï´Ù");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½");
         }
     }
 
-    void ResultUI() //°á°ú UI Ãâ·Â
+    void ResultUI() //ï¿½ï¿½ï¿½ UI ï¿½ï¿½ï¿½
     {
         if (bestScore < time)
         {

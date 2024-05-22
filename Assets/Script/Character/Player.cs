@@ -10,7 +10,6 @@ public class Player : Character
     [SerializeField] private GameObject LeftBoost;
     [SerializeField] private GameObject RightBoost;
 
-    // ¼Ó¼º ¾÷±×·¹ÀÌµå ÇÏ¸é ÀÏÁ¤ ½Ã°£ÀÇ À¯È¿
     private float speedTime = 5f;
     private float powerTime = 5f;
 
@@ -37,7 +36,7 @@ public class Player : Character
         PlayerTarget();
     }
 
-    private void PlayerMoving() //ÇÃ·¹ÀÌ¾î¸¸ÀÇ ÀÌµ¿±â´É
+    private void PlayerMoving() //ï¿½Ã·ï¿½ï¿½Ì¾î¸¸ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ï¿½
     {
         if (Vector2.zero == characterMovement)
         {
@@ -54,11 +53,11 @@ public class Player : Character
     }
     private void PlayerTarget() 
     {
-        //¸¶¿ì½º ¹æÇâ Á¶ÁØ
+        //ï¿½ï¿½ï¿½ì½º ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         //float rotZ = Mathf.Atan2(targetRotation.y, targetRotation.x) * Mathf.Rad2Deg;
         //targetPivot.rotation = Quaternion.Euler(0, 0, rotZ);
 
-        // TODO : ¿Ï¸¸ÇÑ È¸ÀüÀ» Àû¿ëÇÔ
+        // TODO : ï¿½Ï¸ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         float rotZ = Mathf.Atan2(targetRotation.y, targetRotation.x) * Mathf.Rad2Deg;
         Quaternion from = transform.localRotation;
         Quaternion to = Quaternion.Euler(0, 0, rotZ);
@@ -66,27 +65,27 @@ public class Player : Character
 
     }
 
-    // ÀÌ ¸Þ¼­µåµéÀº ¾÷±×·¹ÀÌµå ÇÏ¸é ÀÏÁ¤±â°£µ¿¾È Àû¿ëµÇ´Ù°¡ ¿ø·¡·Î ¸®¼ÂµÈ´Ù.
+    // ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½â°£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÂµÈ´ï¿½.
     private void PowerUp()
     {
-        // ÀÏÁ¤½Ã°£µ¿¾È Power¸¦ 2·Î
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ Powerï¿½ï¿½ 2ï¿½ï¿½
         statsHandler.CurrentStat.power = 2f;
     }
     private void SpeedUp()
     {
-        //ÀÏÁ¤½Ã°£µ¿¾È Speed¸¦ 5·Î
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ Speedï¿½ï¿½ 5ï¿½ï¿½
         statsHandler.CurrentStat.speed = 5f;
     }
 
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Enemy"))
-    //    {
-    //        Dead();
-    //    }
-
-    //    //¸¸¾à ¾ÆÀÌÅÛÀ» ¸ÔÀ¸¸é Á¾·ù¿¡ µû¶ó ¾÷±×·¹ÀÌµå ÇÔ¼ö·Î ÀÌµ¿
-    //}
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        base.OnTriggerEnter2D(collision);
+        if (collision.gameObject.layer == 8) //EnemyBullet
+        {
+            Debug.Log("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½");
+            Dead();
+        }
+    }
 
     protected override void Shooting(AttackSO attackSO)
     {
