@@ -12,6 +12,7 @@ public class Character : MonoBehaviour
 
     public bool IsDead {  get; protected set; }
 
+    protected AudioSource audioSource;
     [SerializeField] protected AudioClip deathClip;
     [SerializeField] protected AudioClip shootClip;
 
@@ -20,6 +21,7 @@ public class Character : MonoBehaviour
         rgb2D = GetComponent<Rigidbody2D>();
         statsHandler = GetComponent<CharacterStatsHandler>();
         healthSystem = GetComponent<HealthSystem>();
+        audioSource = GetComponent<AudioSource>();
     }
     protected virtual void Start()
     {

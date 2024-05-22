@@ -91,6 +91,7 @@ MonoBehaviour:
   targetPivot: {fileID: 5282704033616423241}
   LeftBoost: {fileID: 5836426558118304733}
   RightBoost: {fileID: 8133837151526346333}
+  rootClip: {fileID: 8300000, guid: e91c7f51811f94c43baf98b969973312, type: 3}
 --- !u!114 &2166497485726819339
 MonoBehaviour:
   m_ObjectHideFlags: 0

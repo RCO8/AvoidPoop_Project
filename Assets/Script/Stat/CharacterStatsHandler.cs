@@ -29,6 +29,7 @@ public class CharacterStatsHandler : MonoBehaviour
         CurrentStat.statsChangeType = baseStat.statsChangeType;
         CurrentStat.maxHealth = baseStat.maxHealth;
         CurrentStat.speed = baseStat.speed;
+        CurrentStat.power = baseStat.power;
 
         RangedAttackSO rangedAttackSO = attackSO as RangedAttackSO;
 

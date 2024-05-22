@@ -111,17 +111,6 @@
                 },
                 {
                     "name": "",
-                    "id": "04abd223-2519-47ce-b17d-d8e94e553b3d",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "e291baa1-9ee8-4c65-8594-7ba257a5baef",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",

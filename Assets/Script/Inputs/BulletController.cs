@@ -55,9 +55,6 @@ public class BulletController : MonoBehaviour
 
         isInWindow = false;
         gameObject.SetActive(false);
-        
-        if (gameObject.CompareTag("EnemyBullet"))
-            --gameManager.BulletCount;
 
         gameManager.GetComponent<ObjectPool>().RetrieveObject(attackData.bulletNameTag, this.gameObject);
     }

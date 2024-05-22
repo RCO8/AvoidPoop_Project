@@ -15,6 +15,8 @@ public class Player : Character
 
     PlayerAnimationController animationController;
 
+    [SerializeField] private AudioClip rootClip;
+
     protected override void Awake()
     {
         base.Awake();
@@ -75,6 +77,8 @@ public class Player : Character
 
     public void RootItem(ItemSO itemData)
     {
+        AudioManager.Instance.PlayEffect(rootClip);
+
         StartCoroutine(StatsUPCor(itemData));
     }
 
@@ -140,7 +144,7 @@ public class Player : Character
 
     protected override void Shooting(AttackSO attackSO)
     {
-        //AudioManager.Instance.PlayEffect(shootClip);
+        AudioManager.Instance.PlayEffect(shootClip);
 
         RangedAttackSO rangedAttackSO = attackSO as RangedAttackSO;
 
@@ -179,7 +183,7 @@ public class Player : Character
 
     protected override void Dead()
     {
-        //AudioManager.Instance.PlayEffect(deathClip);
+        AudioManager.Instance.PlayEffect(deathClip);
 
         StartCoroutine(OnDead());
     }

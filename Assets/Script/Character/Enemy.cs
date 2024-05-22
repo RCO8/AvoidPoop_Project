@@ -12,6 +12,7 @@ public class Enemy : Character
 
     [SerializeField] Transform targetPivot;
     [SerializeField] List<string> itemTags;
+    [SerializeField] List<AttackSO> attackSOs;
 
     private Vector2 aimDirection = Vector2.right;
 
@@ -21,7 +22,6 @@ public class Enemy : Character
         rangeEnemyController = GetComponent<RangeEnemyController>();
     }
 
-
     protected override void Start()
     {
         base.Start();
@@ -29,6 +29,11 @@ public class Enemy : Character
         rangeEnemyController.OnTargetEvent += ViewTarget;
         rangeEnemyController.OnTargetEvent += EnemyTaget;
         rangeEnemyController.OnShootEvent += Shooting;
+
+        if ("Easy" == GameManager.Instance.NowDiff)
+            statsHandler.CurrentStat.attackSO = attackSOs[0];
+        else if ("Hard" == GameManager.Instance.NowDiff)
+            statsHandler.CurrentStat.attackSO = attackSOs[1];
     }
     protected override void FixedUpdate()
     {
@@ -51,7 +56,10 @@ public class Enemy : Character
 
     protected override void Shooting(AttackSO attackSO)
     {
-        //AudioManager.Instance.PlayEffect(shootClip);
+        Vector2 viewPos = Camera.main.WorldToViewportPoint(transform.position);
+
+        if ((0f < viewPos.x) && (1f > viewPos.x) && (0f < viewPos.y) && (1f > viewPos.y))
+            AudioManager.Instance.PlayEffect(shootClip);
 
         // 디버그세팅
         // Debug.Log("Emeny 슈팅");
@@ -94,7 +102,7 @@ public class Enemy : Character
         // 체력이 0이하일때 게임 오브젝트 비활성화하고 오브젝트풀에서 없애는 것을 목표로 하면될 거 같습니다.
         if (healthSystem.CurrentHP <= 0)
         {
-            //AudioManager.Instance.PlayEffect(deathClip);
+            AudioManager.Instance.PlayEffect(deathClip);
 
             ObjectPool currentObjectPool = GameManager.Instance.GetComponent<ObjectPool>();
 

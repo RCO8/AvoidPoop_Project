@@ -1,11 +1,12 @@
 ﻿
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class RangeEnemyController : EnemyController
 {
-    private int layerMaskTarget;
+    private LayerMask layerMaskTarget;
     private bool IsMove = false;
 
     Vector2 directionToTarget;
@@ -104,5 +105,32 @@ public class RangeEnemyController : EnemyController
         CallTargetEvent(directionToTarget);
         CallMoveEvent(Vector2.zero);
         IsAttacking = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (IsLayerMatched(layerMaskTarget.value, collision.gameObject.layer))
+        {
+            CharacterStatsHandler stats = collision.gameObject.GetComponent<CharacterStatsHandler>();
+
+            if (!stats.canAttacked)
+            {
+                HealthSystem myHealthSystem = gameObject.GetComponent<HealthSystem>();
+
+                myHealthSystem.ChangeHealth(-stats.CurrentStat.power);
+
+                return;
+            }
+
+            HealthSystem healthSystem = collision.GetComponent<HealthSystem>();
+
+            if (null != healthSystem)
+                healthSystem.ChangeHealth(-gameObject.GetComponent<CharacterStatsHandler>().CurrentStat.power);
+        }
+    }
+
+    private bool IsLayerMatched(int value, int layer)
+    {
+        return value == (value | 1 << layer);
     }
 }

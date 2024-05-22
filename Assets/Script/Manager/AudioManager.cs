@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
 
-    private AudioSource audioSource;
+    private AudioSource[] audioSources;
     [SerializeField] private AudioClip bgmClip;
+    [SerializeField] private AudioMixer audioMixer;
 
     private void Awake()
     {
@@ -18,32 +20,35 @@ public class AudioManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
+
+        audioSources = GetComponents<AudioSource>();
     }
 
     // Start is called before the first frame update
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        audioMixer.SetFloat("BGM", 0.1f);
+        audioMixer.SetFloat("Effect", 1f);
 
-        audioSource.clip = bgmClip;
-        audioSource.Play();
+        audioSources[0].clip = bgmClip;
+        audioSources[0].Play();
     }
 
     public void PlayBGM(AudioClip newClip)
     {
-        audioSource.Stop();
+        audioSources[0].Stop();
 
-        audioSource.clip = newClip;
-        audioSource.Play();
+        audioSources[0].clip = newClip;
+        audioSources[0].Play();
     }
 
-    public void PlayEffect(AudioClip newEffect)
+    public void PlayEffect(AudioClip newClip)
     {
-        audioSource.PlayOneShot(newEffect);
+        audioSources[1].PlayOneShot(newClip);
     }
 
     public void StopBGM()
     {
-        audioSource.Stop();
+        audioSources[0].Stop();
     }
 }

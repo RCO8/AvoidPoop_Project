@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
 
     public Text timeTxt;
     public Text BestScore;
-    [SerializeField] private Text bulletCountTxt;
     [SerializeField] private GameObject resultUI;
     [SerializeField] private Text currentScoreTxt;
     [SerializeField] private Text bestScoreTxt;
@@ -51,13 +50,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject speedImg;
     [SerializeField] private GameObject invincibillityImg;
 
-    string nowDiff = "Easy";
+    public string NowDiff { get; private set; } = "Easy";
     int nowPlayer = 1;   
     [SerializeField] private GameObject Movement2;
 
     bool isPlay = true;
-    
-    public int BulletCount { get; set; } = 0;
 
     public ObjectPool CurrentObjectPool { get; private set; }
 
@@ -102,12 +99,12 @@ public class GameManager : MonoBehaviour
         //Difficalty?¤ë? ë¡œë“œ
         if(PlayerPrefs.HasKey("Difficalty"))
         {
-            nowDiff = PlayerPrefs.GetString("Difficalty");
+            NowDiff = PlayerPrefs.GetString("Difficalty");
             //Easy, Hard
 
-            if ("Easy" == nowDiff)
+            if ("Easy" == NowDiff)
                 spawnInterval = 5f;
-            else if ("Hard" == nowDiff)
+            else if ("Hard" == NowDiff)
                 spawnInterval = 1f;
         }
 
@@ -128,8 +125,6 @@ public class GameManager : MonoBehaviour
             //{
             //    //ReSpawn();
             //}
-
-            bulletCountTxt.text = BulletCount.ToString();
 
             timeSinceLastSpawn += Time.deltaTime; 
 

@@ -25,8 +25,6 @@ public class DodgeShooting : MonoBehaviour
 
         BulletController attackController = obj.GetComponent<BulletController>();
         attackController.InitailizeAttack(aimDirection, attackSO);
-
-        ++GameManager.Instance.BulletCount;
     }
 
     private void OnAim(Vector2 direction)

@@ -51,13 +51,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfc2921c9c8932b4a86a684fa23acbca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathClip: {fileID: 8300000, guid: e91c7f51811f94c43baf98b969973312, type: 3}
+  deathClip: {fileID: 8300000, guid: 6ebaa66c8233f0240aa35756b32c1575, type: 3}
   shootClip: {fileID: 8300000, guid: 27282853f70d5c947a10e3a56039db2d, type: 3}
   targetPivot: {fileID: 5537907450241302731}
   itemTags:
   - PowerItem
   - SpeedItem
   - InvincibillityItem
+  attackSOs:
+  - {fileID: 11400000, guid: 4443346c5afe4cb44a006de1d3b50797, type: 2}
+  - {fileID: 11400000, guid: 9b6a51e1b7c934d46bb4772c65d6d578, type: 2}
 --- !u!114 &6018134148881539815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,7 +89,7 @@ MonoBehaviour:
     statsChangeType: 0
     maxHealth: 1
     speed: 2
-    power: 0
+    power: 1
     attackSO: {fileID: 11400000, guid: d35a5a1a17c8a0b41bbda354b8692afd, type: 2}
   statModifiers: []
   currentBulletsPerShot: 0
@@ -119,7 +122,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -163,7 +166,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.05}
+  m_Offset: {x: -0.05, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -174,7 +177,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.75}
+  m_Size: {x: 0.75, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &4600511686566587463
 GameObject:
@@ -201,13 +204,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4600511686566587463}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3756148714716028470}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &6284045894605165383
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -285,7 +288,7 @@ Transform:
   m_GameObject: {fileID: 6774928449862636524}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.336, z: 0}
+  m_LocalPosition: {x: 0.3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
