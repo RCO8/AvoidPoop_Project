@@ -45,6 +45,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject resultUI;
     [SerializeField] private Text currentScoreTxt;
     [SerializeField] private Text bestScoreTxt;
+    [SerializeField] private Text speedTxt;
+    [SerializeField] private Text powerTxt;
+    [SerializeField] private GameObject powerImg;
+    [SerializeField] private GameObject speedImg;
+    [SerializeField] private GameObject invincibillityImg;
 
     int nowPlayer = 1;   //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Î¿ï¿½
     [SerializeField] private GameObject Movement2;
@@ -89,6 +94,8 @@ public class GameManager : MonoBehaviour
             if (nowPlayer == 2) Movement2.SetActive(true);
             else Movement2.SetActive(false);
         }
+
+        SetPlayerUI(Player.gameObject.GetComponent<CharacterStatsHandler>());
     }
 
     // Update is called once per frame
@@ -167,7 +174,6 @@ public class GameManager : MonoBehaviour
         {
             GameObject itemSpawn = Instantiate(powerItemspawnTime);
             itemSpawn.SetActive(true);
-            Debug.Log("?„ì´?œì´ ?ì„±?˜ì—ˆ?µë‹ˆ??);
         } 
     }
 
@@ -178,7 +184,6 @@ public class GameManager : MonoBehaviour
         {
             GameObject itemSpawn = Instantiate(speedItemspawnTime);
             itemSpawn.SetActive(true);
-            Debug.Log("?„ì´?œì´ ?ì„±?˜ì—ˆ?µë‹ˆ??);
         }
     }
 
@@ -189,7 +194,6 @@ public class GameManager : MonoBehaviour
         {
             GameObject itemSpawn = Instantiate(invicibilItemspawnTime);
             itemSpawn.SetActive(true);
-            Debug.Log("?„ì´?œì´ ?ì„±?˜ì—ˆ?µë‹ˆ??);
         }
     }
 
@@ -231,5 +235,27 @@ public class GameManager : MonoBehaviour
     public void GoToMenu()
     {
         SceneManager.LoadScene("IntroScene");
+    }
+
+    public void SetPlayerUI(CharacterStatsHandler playerStats)
+    {
+        speedTxt.text = playerStats.CurrentStat.speed.ToString();
+        powerTxt.text = playerStats.currentBulletsPerShot.ToString();
+    }
+
+    public void TurnItem(ItemType type, bool isTurn)
+    {
+        switch (type)
+        {
+            case ItemType.POWERUP:
+                powerImg.SetActive(isTurn);
+                break;
+            case ItemType.SPEEDUP:
+                speedImg.SetActive(isTurn);
+                break;
+            case ItemType.Invincibillity:
+                invincibillityImg.SetActive(isTurn);
+                break;
+        }
     }
 }

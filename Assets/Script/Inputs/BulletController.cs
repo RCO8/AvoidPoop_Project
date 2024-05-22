@@ -71,6 +71,14 @@ public class BulletController : MonoBehaviour
     {
         if (IsLayerMatched(attackData.target.value, collision.gameObject.layer))
         {
+            if (IsLayerMatched(LayerMask.GetMask("Player"), collision.gameObject.layer))
+            {
+                CharacterStatsHandler stats = collision.gameObject.GetComponent<CharacterStatsHandler>();
+
+                if (!stats.canAttacked)
+                    return;
+            }
+
             DestroyBullet(collision.ClosestPoint(transform.position), fxOnDestroy);
 
             HealthSystem healthSystem = collision.GetComponent<HealthSystem>();
