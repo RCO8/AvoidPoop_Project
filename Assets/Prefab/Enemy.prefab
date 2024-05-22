@@ -49,8 +49,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfc2921c9c8932b4a86a684fa23acbca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathClip: {fileID: 0}
-  shootClip: {fileID: 0}
+  deathClip: {fileID: 8300000, guid: e91c7f51811f94c43baf98b969973312, type: 3}
+  shootClip: {fileID: 8300000, guid: 27282853f70d5c947a10e3a56039db2d, type: 3}
   targetPivot: {fileID: 5537907450241302731}
 --- !u!114 &6859687213611459859
 MonoBehaviour:
