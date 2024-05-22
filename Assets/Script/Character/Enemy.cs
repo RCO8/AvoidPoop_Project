@@ -25,7 +25,7 @@ public class Enemy : Character
     protected override void Start()
     {
         base.Start();
-
+        rangeEnemyController.OnMoveEvent += Moving;
         rangeEnemyController.OnTargetEvent += ViewTarget;
         rangeEnemyController.OnShootEvent += Shooting;
         healthSystem.OnDeath += Dead;
@@ -33,7 +33,14 @@ public class Enemy : Character
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+        EnemyMove();
     }
+
+    private void EnemyMove()
+    {
+        rgb2D.velocity = characterMovement.normalized * statsHandler.CurrentStat.speed;
+    }
+
     protected override void Shooting(AttackSO attackSO)
     {
         // 디버그세팅

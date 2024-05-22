@@ -17,7 +17,7 @@ public class RangeEnemyController : EnemyController
         base.FixedUpdate();
 
         Vector2 directionToTarget = DirectionToTarget();
-        PrerformAttackAction(directionToTarget);
+        RandomMove(directionToTarget);
     }
 
     private void RandomMove(Vector2 directionToTarget)
@@ -29,14 +29,18 @@ public class RangeEnemyController : EnemyController
             float xnum = gameObject.transform.position.x;
             float ynum = gameObject.transform.position.y;
 
-            float randomx = UnityEngine.Random.Range(-3.0f, 3.0f);
-            float randomy = UnityEngine.Random.Range(-3.0f, 3.0f);
+            Vector2 randomDirection = new Vector2(1, 1);
 
-            Vector2 vector2 = new Vector2(xnum  + randomx, ynum + randomy);
+            float randomDistance = Random.Range(-3, 3);
+
+            Vector2 vector2 = new Vector2(xnum, ynum) + randomDirection * randomDistance;
 
             // 이게 맞을까나?
-            CallMoveEvent(vector2);
-            
+            CallMoveEvent(-vector2);
+            if( vector2 ==  Vector2.zero ) 
+            {
+                CallMoveEvent(vector2);
+            }
             // 추가후에 
             IsMove = false;
         }
@@ -50,8 +54,9 @@ public class RangeEnemyController : EnemyController
     // 공격
     private void PrerformAttackAction(Vector2 directionToTarget)
     {
+
         CallTargetEvent(directionToTarget);
-        CallMoveEvent(Vector2.one);
+        CallMoveEvent(Vector2.zero);
         IsAttacking = true;
         IsMove = true;
     }

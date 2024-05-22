@@ -124,6 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfc2921c9c8932b4a86a684fa23acbca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathClip: {fileID: 0}
+  shootClip: {fileID: 0}
   targetPivot: {fileID: 5537907450241302731}
 --- !u!114 &6859687213611459859
 MonoBehaviour:

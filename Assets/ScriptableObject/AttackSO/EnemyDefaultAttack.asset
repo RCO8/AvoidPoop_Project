@@ -16,11 +16,11 @@ MonoBehaviour:
   size: 1
   delay: 5
   power: 3
-  speed: 10
+  speed: 3
   target:
     serializedVersion: 2
     m_Bits: 1024
-  bulletColor: {r: 1, g: 0, b: 0, a: 1}
+  bulletColor: {r: 1, g: 1, b: 1, a: 1}
   spread: 0
   numberOfBulletsPerShot: 1
   multipleBulletsAngle: 7
