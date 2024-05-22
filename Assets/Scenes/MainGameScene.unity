@@ -572,6 +572,7 @@ MonoBehaviour:
   currentScoreTxt: {fileID: 812242436}
   bestScoreTxt: {fileID: 2051789789}
   windowOutEnemyTag: WindowOutEnemy
+  RandomEnemyTag: Enemy
 --- !u!114 &471000953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,7 +594,13 @@ MonoBehaviour:
     size: 50
   - tag: WindowOutEnemy
     prefab: {fileID: 8306431132553249370, guid: a74e4ac9c3a56c94982c93ddabd17924, type: 3}
-    size: 100
+    size: 50
+  - tag: EnemyBullet
+    prefab: {fileID: 5975675928629426048, guid: 3934de4a81578564bbdbef247b278132, type: 3}
+    size: 50
+  - tag: Enemy
+    prefab: {fileID: 2266255060803514507, guid: dae2f5acf6184834abad6ee2adb591f2, type: 3}
+    size: 50
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

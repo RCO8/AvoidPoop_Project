@@ -8,13 +8,15 @@ using Unity.VisualScripting.Antlr3.Runtime.Misc;
 
 public class Enemy : Character
 {
-    
+
     RangeEnemyController rangeEnemyController;
-    
+
     [SerializeField] Transform targetPivot;
-    
+
+    [SerializeField] GameObject itemObject;
+
     private Vector2 aimDirection = Vector2.right;
-  
+
     protected override void Awake()
     {
         base.Awake();
@@ -25,20 +27,27 @@ public class Enemy : Character
     protected override void Start()
     {
         base.Start();
-        rangeEnemyController.OnMoveEvent += Moving;
+        rangeEnemyController.OnMoveEvent += EnemyMove;
         rangeEnemyController.OnTargetEvent += ViewTarget;
+        rangeEnemyController.OnTargetEvent += EnemyTaget;
         rangeEnemyController.OnShootEvent += Shooting;
-        healthSystem.OnDeath += Dead;
     }
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        EnemyMove();
     }
 
-    private void EnemyMove()
+    private void EnemyMove(Vector2 direction)
     {
-        rgb2D.velocity = characterMovement.normalized * statsHandler.CurrentStat.speed;
+        rgb2D.velocity = direction * statsHandler.CurrentStat.speed;
+    }
+
+    private void EnemyTaget(Vector2 direction)
+    {
+        float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        //스프라이트에서 문제가 있어서 안쪽에서 90+더한 값으로 이동하게끔 만들었습니다.
+        transform.rotation = Quaternion.Euler(0, 0, rotZ + 90.0f);
     }
 
     protected override void Shooting(AttackSO attackSO)
@@ -72,7 +81,7 @@ public class Enemy : Character
         obj.transform.position = targetPivot.position;
 
         BulletController bulletController = obj.GetComponent<BulletController>();
-        
+
         bulletController.InitailizeAttack(RotateVector2(targetRotation, angle), rangedAttackSO);
     }
     private static Vector2 RotateVector2(Vector2 v, float angle)
@@ -84,11 +93,15 @@ public class Enemy : Character
         // 체력이 0이하일때 게임 오브젝트 비활성화하고 오브젝트풀에서 없애는 것을 목표로 하면될 거 같습니다.
         if (healthSystem.CurrentHP <= 0)
         {
-            // 그리고 비활성화
-            gameObject.SetActive(false);
-
             // 체력을 원상복구
             healthSystem.ReSetHp();
+
+            Debug.Log(healthSystem.CurrentHP);
+
+            ObjectPool pool = GameManager.Instance.GetComponent<ObjectPool>();
+
+            // 아이템을 생성한다.
+            Instantiate(itemObject, transform);
 
             //게임 매니저를 통해서 그 오브젝트 플이 있으면 다시 집어 넣는 다. 
             GameManager.Instance.GetComponent<ObjectPool>().RetrieveObject(gameObject.tag, gameObject);

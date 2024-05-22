@@ -51,8 +51,10 @@ public class GameManager : MonoBehaviour
     public ObjectPool CurrentObjectPool { get; private set; }
 
     private GameObject obj;
-    [SerializeField] private string windowOutEnemyTag;
+    private GameObject enemyobj;
 
+    [SerializeField] private string windowOutEnemyTag;
+    [SerializeField] private string RandomEnemyTag;
     private void Awake()
     {
         if (null == Instance)
@@ -105,9 +107,13 @@ public class GameManager : MonoBehaviour
                 obj = CurrentObjectPool.LinkedSpawnFromPool(windowOutEnemyTag);
                 obj.transform.position = randomPosition;
 
+                enemyobj = CurrentObjectPool.LinkedSpawnFromPool(RandomEnemyTag);
+                enemyobj.transform.position = CreateEnemy();
+
                 timeSinceLastSpawn = 0f; //생성시간 초기화
             }
 
+            
 
         }
     }
@@ -122,7 +128,7 @@ public class GameManager : MonoBehaviour
 
         Vector2 randomPosition = Vector2.zero; // 초기화된 랜덤 위치
         // 화면 밖의 랜덤 위치를 생성하기 위한 랜덤한 경계 선택
-        int edge = Random.Range(0, 5);
+        int edge = Random.Range(0, 4);
 
         // 선택된 경계에 따라 랜덤 위치 설정
         switch ((EnemyPos)edge)
@@ -138,9 +144,6 @@ public class GameManager : MonoBehaviour
                 break;
             case EnemyPos.DOWN: // 아래
                 randomPosition = new Vector2(Random.Range(screenLeft.x, screenRight.x), screenBottom.y - 1f);
-                break;
-            case EnemyPos.RANDEOM:
-                randomPosition = CreateEnemy();
                 break;
             default:
                 Debug.Log("GenerateRandomPosition에 문제가 생김 GameManager에 문제가 생겼음");
