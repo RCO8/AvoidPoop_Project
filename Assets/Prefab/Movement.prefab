@@ -85,8 +85,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e0191329d365004485f69ea485c730d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathClip: {fileID: 0}
-  shootClip: {fileID: 0}
+  deathClip: {fileID: 8300000, guid: 032fa18d843224f4999241c95c616a77, type: 3}
+  shootClip: {fileID: 8300000, guid: 66c65064bbd8c6243a246868b3205667, type: 3}
   targetPivot: {fileID: 5282704033616423241}
   LeftBoost: {fileID: 5836426558118304733}
   RightBoost: {fileID: 8133837151526346333}
@@ -179,7 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseStat:
     statsChangeType: 0
-    maxHealth: 0
+    maxHealth: 1
     speed: 3
     power: 1
     attackSO: {fileID: 11400000, guid: 594a4a4be9d4e9d44ac567373b2e19e5, type: 2}

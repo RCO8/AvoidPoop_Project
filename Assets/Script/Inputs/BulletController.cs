@@ -44,17 +44,22 @@ public class BulletController : MonoBehaviour
 
     private void DestroyBullet(Vector3 position, bool createFX)
     {
+        GameManager gameManager = GameManager.Instance;
+
         if (createFX)
         {
-
+            GameObject obj = gameManager.GetComponent<ObjectPool>().SpawnFromPool(attackData.effectTag);
+            obj.GetComponent<Effect>().InitializeEffect(position);
+            obj.GetComponent<Effect>().SetTag(attackData.effectTag);
         }
 
         isInWindow = false;
         gameObject.SetActive(false);
         
-        --GameManager.Instance.BulletCount;
+        if (gameObject.CompareTag("EnemyBullet"))
+            --gameManager.BulletCount;
 
-        GameManager.Instance.GetComponent<ObjectPool>().RetrieveObject(attackData.bulletNameTag, this.gameObject);
+        gameManager.GetComponent<ObjectPool>().RetrieveObject(attackData.bulletNameTag, this.gameObject);
     }
 
     private void UpdateBulletSprite()
@@ -66,12 +71,12 @@ public class BulletController : MonoBehaviour
     {
         if (IsLayerMatched(attackData.target.value, collision.gameObject.layer))
         {
+            DestroyBullet(collision.ClosestPoint(transform.position), fxOnDestroy);
+
             HealthSystem healthSystem = collision.GetComponent<HealthSystem>();
 
             if (null != healthSystem)
                 healthSystem.ChangeHealth(-attackData.power);
-
-            DestroyBullet(collision.ClosestPoint(transform.position), fxOnDestroy);
         }
     }
 

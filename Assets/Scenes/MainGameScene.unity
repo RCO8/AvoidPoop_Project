@@ -668,6 +668,15 @@ MonoBehaviour:
   - tag: WindowOutEnemy
     prefab: {fileID: 8306431132553249370, guid: a74e4ac9c3a56c94982c93ddabd17924, type: 3}
     size: 100
+  - tag: EnemyEffect
+    prefab: {fileID: 5140732015125283686, guid: cdd7d10440ae0854bbc9bfcd51bdf7a5, type: 3}
+    size: 30
+  - tag: PlayerEffect
+    prefab: {fileID: 5140732015125283686, guid: 89c6a3472297f6a42887c22c98cdb869, type: 3}
+    size: 30
+  - tag: WindowOutEffect
+    prefab: {fileID: 5140732015125283686, guid: 7be52f9522487894694f812c136a59b3, type: 3}
+    size: 30
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
