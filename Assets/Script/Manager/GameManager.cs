@@ -44,6 +44,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text currentScoreTxt;
     [SerializeField] private Text bestScoreTxt;
 
+    int nowPlayer = 1;   //플레이어 인원
+    [SerializeField] private GameObject Movement2;
+
     bool isPlay = true;
     // 블렛을 카운트를 세는 함수
     public int BulletCount { get; set; } = 0;
@@ -74,6 +77,14 @@ public class GameManager : MonoBehaviour
         BestScore.text = bestScore.ToString("N2");
 
         InvokeRepeating("ItemSpawnTime", 15f, 15f);
+
+        //SelectScene에서 저장한 Player키를 로드
+        if (PlayerPrefs.HasKey("Player"))
+        {
+            nowPlayer = PlayerPrefs.GetInt("Player");
+            if (nowPlayer == 2) Movement2.SetActive(true);
+            else Movement2.SetActive(false);
+        }
     }
 
     // Update is called once per frame
