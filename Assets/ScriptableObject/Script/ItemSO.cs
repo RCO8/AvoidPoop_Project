@@ -7,4 +7,5 @@ public class ItemSO : ScriptableObject
     [Header("Item Info")]
     public float increase;
     public ItemType type;
+    public LayerMask target;
 }
