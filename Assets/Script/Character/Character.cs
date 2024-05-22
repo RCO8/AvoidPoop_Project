@@ -20,11 +20,10 @@ public class Character : MonoBehaviour
         rgb2D = GetComponent<Rigidbody2D>();
         statsHandler = GetComponent<CharacterStatsHandler>();
         healthSystem = GetComponent<HealthSystem>();
-
     }
     protected virtual void Start()
     {
-        healthSystem.OnDeath += Dead;
+         healthSystem.OnDeath += Dead;
     }
 
     protected virtual void FixedUpdate()

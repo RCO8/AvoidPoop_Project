@@ -62,8 +62,11 @@ public class GameManager : MonoBehaviour
     public ObjectPool CurrentObjectPool { get; private set; }
 
     private GameObject obj;
+
     [SerializeField] private string windowOutEnemyTag;
     [SerializeField] private string enemyTag;
+
+    private GameObject enemyobj;
 
     private void Awake()
     {
@@ -143,7 +146,10 @@ public class GameManager : MonoBehaviour
                 obj = CurrentObjectPool.SpawnFromPool(enemyTag);
                 obj.transform.position = randomPosition;
 
-                timeSinceLastSpawn = 0f;
+                //enemyobj = CurrentObjectPool.LinkedSpawnFromPool(RandomEnemyTag);
+                //enemyobj.transform.position = CreateEnemy();
+
+                timeSinceLastSpawn = 0f; //생성시간 초기화
             }
         }
     }
@@ -156,8 +162,9 @@ public class GameManager : MonoBehaviour
         Vector2 screenTop = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width * 0.5f, Screen.height)); 
         Vector2 screenBottom = -screenTop;
 
-        Vector2 randomPosition = Vector2.zero; 
-        
+        Vector2 randomPosition = Vector2.zero; // 초기화된 랜덤 위치
+        // 화면 밖의 랜덤 위치를 생성하기 위한 랜덤한 경계 선택
+
         int edge = Random.Range(0, 4);
 
         switch ((EnemyPos)edge)

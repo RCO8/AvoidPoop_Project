@@ -53,7 +53,7 @@ public class HealthSystem : MonoBehaviour
         timeSinceLastChange = 0f;
         CurrentHP += change;
         // ÃÖ¼Ú°ª 0, ÃÖ´ñ°ª MaxHealth
-        Debug.Log(CurrentHP);
+        //Debug.Log(CurrentHP);
         
         CurrentHP = Mathf.Clamp(CurrentHP, 0, MaxHealth);
 

@@ -1,4 +1,5 @@
 ﻿
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -6,58 +7,102 @@ public class RangeEnemyController : EnemyController
 {
     private int layerMaskTarget;
     private bool IsMove = false;
+
+    Vector2 directionToTarget;
+    Vector2 drection;
+    float time = 0;
+    float movetime = 0;
+    int count = 0;
+    IEnumerator Cor;
     protected override void Start()
     {
         base.Start();
         layerMaskTarget = stats.CurrentStat.attackSO.target;
+        Cor = IRandomMove();
+        StartCoroutine(Cor);
+    }
+
+    private void OnEnable()
+    {
+        if (Cor != null)
+        {
+            StartCoroutine(Cor);
+        }
     }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
 
-        Vector2 directionToTarget = DirectionToTarget();
-        RandomMove(directionToTarget);
+        time += Time.fixedDeltaTime;
+
+        directionToTarget = DirectionToTarget();
+
+        if (IsMove == false)
+        {
+            PrerformAttackAction(directionToTarget);
+            Debug.Log("FixedUpdate에 46줄");
+        }
+
+        //if (time >= stats.CurrentStat.attackSO.delay && IsMove == true)
+        //{
+        //    RandomMove();
+
+        //    if (time >= 8f)
+        //    {
+        //        Debug.Log(time);
+        //        IsMove = false;
+        //        time = 0;
+        //    }
+        //}
+        //else if (time < stats.CurrentStat.attackSO.delay && IsMove == false)
+        //{
+        //    PrerformAttackAction(directionToTarget);
+        //}
     }
 
-    private void RandomMove(Vector2 directionToTarget)
+
+    // 코루틴은 비활성화 되면 작동을 안합니다.
+    IEnumerator IRandomMove()
     {
-        //움직이는 것을 의미합니다.
-        if (IsMove)
+        while (true)
         {
-            // 지금 게임 오브젝트에 대한 x,y축을 가져온다.
-            float xnum = gameObject.transform.position.x;
-            float ynum = gameObject.transform.position.y;
+            yield return new WaitForSeconds(stats.CurrentStat.attackSO.delay);
+            
+            IsMove = true;
+            yield return new WaitForFixedUpdate();
 
-            Vector2 randomDirection = new Vector2(1, 1);
-
-            float randomDistance = Random.Range(-3, 3);
-
-            Vector2 vector2 = new Vector2(xnum, ynum) + randomDirection * randomDistance;
-
-            // 이게 맞을까나?
-            CallMoveEvent(-vector2);
-            if( vector2 ==  Vector2.zero ) 
-            {
-                CallMoveEvent(vector2);
-            }
-            // 추가후에 
+            Debug.Log("아무거나");
+            RandomMove();
+            yield return new WaitForSeconds(3f);
             IsMove = false;
         }
 
-        // 아닐시 공격
-        else
-        {
-            PrerformAttackAction(directionToTarget);
-        }
     }
+    //픽스업데이트는 0초
+    private void RandomMove()
+    {
+        //움직이는 것을 의미합니다.
+        while (true)
+        {
+            drection = new Vector2(Random.Range(-1, 2), Random.Range(-1, 2)).normalized;
+            if (drection != Vector2.zero)
+            {
+                break;
+            }
+        }
+        Vector2 TestVector = Vector2.one;
+        TestVector = TestVector * drection;
+        // 움직이게 구독하는 부분을
+        CallMoveEvent(TestVector);
+        CallTargetEvent(TestVector);
+    }
+
     // 공격
     private void PrerformAttackAction(Vector2 directionToTarget)
     {
-
         CallTargetEvent(directionToTarget);
         CallMoveEvent(Vector2.zero);
         IsAttacking = true;
-        IsMove = true;
     }
 }
