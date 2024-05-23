@@ -20,7 +20,7 @@ MonoBehaviour:
   target:
     serializedVersion: 2
     m_Bits: 64
-  bulletColor: {r: 1, g: 1, b: 1, a: 0}
+  bulletColor: {r: 1, g: 1, b: 1, a: 1}
   effectTag: EnemyEffect
   spread: 0
   numberOfBulletsPerShot: 1

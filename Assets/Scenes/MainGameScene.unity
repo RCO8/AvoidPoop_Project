@@ -1900,9 +1900,17 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2166497485726819339, guid: aa1f26fead9ca6047a60fe66de984d53, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 519420031}
+    - target: {fileID: 7723784060131384808, guid: aa1f26fead9ca6047a60fe66de984d53, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
     - target: {fileID: 7723784060131384808, guid: aa1f26fead9ca6047a60fe66de984d53, type: 3}
       propertyPath: m_DefaultActionMap
-      value: 3802babc-11d6-41f4-ba8b-3763aec9d4e5
+      value: Player2
       objectReference: {fileID: 0}
     - target: {fileID: 8864279675423056486, guid: aa1f26fead9ca6047a60fe66de984d53, type: 3}
       propertyPath: m_Color.b
