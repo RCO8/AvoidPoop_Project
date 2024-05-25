@@ -49,3 +49,4 @@
 ### 6. 결과
 * 영상 : https://www.youtube.com/watch?v=_8e0U93kJ0k
 * 노션 : https://www.notion.so/teamsparta/4653289ebeba467e8f39f99def49e964
+* (노션 페이지에 ppt자료, 역할 분담 등이 게시되었습니다)
